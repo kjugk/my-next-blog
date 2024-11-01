@@ -54,7 +54,7 @@ export function getMarkedInstance() {
       }),
     );
 
-    _instance.use({ renderer });
+    _instance.use({ breaks: true, renderer });
 
     instance = _instance;
   }
