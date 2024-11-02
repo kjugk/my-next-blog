@@ -8,7 +8,7 @@ export const HtmlPreview = ({ body }: Props) => {
   const marked = getMarkedInstance();
 
   return (
-    <div className="p-4 border rounded prose max-w-full bg-base-100">
+    <div className="mt-10 p-4 border rounded prose max-w-full bg-base-100 overflow-scroll">
       <div dangerouslySetInnerHTML={{ __html: marked.parse(body) }} />
     </div>
   );
