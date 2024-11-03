@@ -33,7 +33,7 @@ export const PostEditor = () => {
         </FormItem>
 
         <div className="grid grid-cols-2 gap-4 flex-1 overflow-hidden">
-          <FormItem className="h-full flex flex-col">
+          <FormItem className="h-full flex flex-col p-1">
             <Label htmlFor="body">本文</Label>
             <Textarea
               id="body"
