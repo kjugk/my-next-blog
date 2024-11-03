@@ -6,7 +6,7 @@ import plaintext from "highlight.js/lib/languages/plaintext";
 import javascript from "highlight.js/lib/languages/javascript";
 import typescript from "highlight.js/lib/languages/typescript";
 
-import "highlight.js/styles/monokai.css";
+import "highlight.js/styles/panda-syntax-dark.css";
 
 hljs.registerLanguage("plaintext", plaintext);
 hljs.registerLanguage("javascript", javascript);
