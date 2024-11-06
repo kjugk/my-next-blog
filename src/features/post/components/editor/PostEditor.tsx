@@ -7,15 +7,21 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { FormItem } from "@/components/ui/form";
 import { Textarea } from "@/components/ui/textarea";
+import { useRouter } from "next/navigation";
 
 export const PostEditor = () => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
+  const router = useRouter();
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    await createPost(title, body);
-    console.log("submit");
+
+    const res = await createPost(title, body);
+
+    console.log(res.message);
+
+    router.push("/post/list");
   };
 
   return (
