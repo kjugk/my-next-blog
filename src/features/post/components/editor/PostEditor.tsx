@@ -7,15 +7,26 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { FormItem } from "@/components/ui/form";
 import { Textarea } from "@/components/ui/textarea";
+import { useRouter } from "next/navigation";
+import { useToast } from "@/hooks/use-toast";
 
 export const PostEditor = () => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
+  const router = useRouter();
+  const { toast } = useToast();
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    await createPost(title, body);
-    console.log("submit");
+
+    const res = await createPost(title, body);
+
+    toast({
+      title: res.message,
+      variant: res.status === "error" ? "destructive" : "default",
+    });
+
+    router.push("/post/list");
   };
 
   return (
