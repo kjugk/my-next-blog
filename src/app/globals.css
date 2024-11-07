@@ -63,4 +63,9 @@
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
   }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN",
+      "Hiragino Sans", Meiryo, sans-serif, "Segoe UI Emoji";
+  }
 }
