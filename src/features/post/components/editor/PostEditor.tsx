@@ -21,7 +21,7 @@ import { postFormSchema, PostFormSchemaType } from "../../postFormSchema";
 
 export const PostEditor = () => {
   const router = useRouter();
-  const [isPending, startTransition] = useTransition();
+  const [, startTransition] = useTransition();
   const { toast } = useToast();
   const form = useForm<PostFormSchemaType>({
     resolver: zodResolver(postFormSchema),
