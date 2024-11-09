@@ -5,7 +5,7 @@ import { ServerFunctionResponse } from "@/types";
 import { Post } from "@prisma/client";
 
 export const updatePost = async (
-  id: string,
+  id: number,
   title: string,
   body: string,
 ): Promise<ServerFunctionResponse<Post>> => {

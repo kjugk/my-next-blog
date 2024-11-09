@@ -14,18 +14,22 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { useForm } from "react-hook-form";
 import { postFormSchema, PostFormSchemaType } from "../../postFormSchema";
+import { Post } from "@prisma/client";
 
 type Props = {
+  post?: Post;
   onSubmit(values: PostFormSchemaType): void;
 };
 
-export const PostEditor = ({ onSubmit }: Props) => {
+export const PostEditor = ({ post, onSubmit }: Props) => {
   const form = useForm<PostFormSchemaType>({
     resolver: zodResolver(postFormSchema),
-    defaultValues: {
-      title: "",
-      body: "",
-    },
+    defaultValues: post
+      ? { ...post }
+      : {
+          title: "",
+          body: "",
+        },
   });
   const body = form.watch("body");
 

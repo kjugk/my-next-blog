@@ -5,16 +5,18 @@ import { PostFormSchemaType } from "../../postFormSchema";
 import { updatePost } from "../../serverFunctions/editPost";
 import { useToast } from "@/hooks/use-toast";
 import { useTransition } from "react";
-import { useRouter } from "next/router";
+import { PostEditor } from "../editor/PostEditor";
+import { Post } from "@prisma/client";
+import { useRouter } from "next/navigation";
 
-export const EditPostContainer = ({ id }: { id: string }) => {
+export const EditPostContainer = ({ post }: { post: Post }) => {
   const router = useRouter();
   const [, startTransition] = useTransition();
   const { toast } = useToast();
 
   const handleSubmit = (values: PostFormSchemaType) => {
     startTransition(async () => {
-      const res = await updatePost(id, values.title, values.body);
+      const res = await updatePost(post.id, values.title, values.body);
 
       toast({
         title: res.message,
@@ -27,5 +29,5 @@ export const EditPostContainer = ({ id }: { id: string }) => {
     });
   };
 
-  return <div>Edit Post Container</div>;
+  return <PostEditor post={post} onSubmit={handleSubmit} />;
 };
