@@ -1,8 +1,6 @@
 "use client";
 
-import { useTransition } from "react";
 import { HtmlPreview } from "./HtmlPreview";
-import { createPost } from "../../serverFunctions/createPost";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/ui/input";
 import {
@@ -14,44 +12,32 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Textarea } from "@/components/ui/textarea";
-import { useRouter } from "next/navigation";
-import { useToast } from "@/hooks/use-toast";
 import { useForm } from "react-hook-form";
 import { postFormSchema, PostFormSchemaType } from "../../postFormSchema";
+import { Post } from "@prisma/client";
 
-export const PostEditor = () => {
-  const router = useRouter();
-  const [, startTransition] = useTransition();
-  const { toast } = useToast();
+type Props = {
+  post?: Post;
+  onSubmit(values: PostFormSchemaType): void;
+};
+
+export const PostEditor = ({ post, onSubmit }: Props) => {
   const form = useForm<PostFormSchemaType>({
     resolver: zodResolver(postFormSchema),
-    defaultValues: {
-      title: "",
-      body: "",
-    },
+    defaultValues: post
+      ? { ...post }
+      : {
+          title: "",
+          body: "",
+        },
   });
   const body = form.watch("body");
-
-  const handleSubmit = (values: PostFormSchemaType) => {
-    const { title, body } = values;
-
-    startTransition(async () => {
-      const res = await createPost(title, body);
-
-      toast({
-        title: res.message,
-        variant: res.status === "error" ? "destructive" : "default",
-      });
-
-      router.push("/post/list");
-    });
-  };
 
   return (
     <div className="p-4 bg-base-200 h-screen">
       <Form {...form}>
         <form
-          onSubmit={form.handleSubmit(handleSubmit)}
+          onSubmit={form.handleSubmit(onSubmit)}
           className="flex flex-col h-full space-y-4"
         >
           <FormField

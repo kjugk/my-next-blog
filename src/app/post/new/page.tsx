@@ -1,9 +1,9 @@
-import { PostEditor } from "@/features/post/components/editor/PostEditor";
+import { CreatePostContainer } from "@/features/post/components/createPostContainer/CreatePostContainer";
 
 export default function Page() {
   return (
     <div>
-      <PostEditor />
+      <CreatePostContainer />
     </div>
   );
 }
