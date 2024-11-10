@@ -6,17 +6,17 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-import { Post } from "@prisma/client";
 import Link from "next/link";
 import { format } from "date-fns";
 import { Calendar } from "lucide-react";
+import { getPosts } from "../../serverFunctions/getPosts";
 
 type Props = {
-  drafts: Post[];
   className?: string;
 };
 
-export const DraftList = ({ drafts, className }: Props) => {
+export const DraftList = async ({ className }: Props) => {
+  const drafts = await getPosts({ published: false });
   const listClassName = cn("space-y-4", className);
 
   return (
