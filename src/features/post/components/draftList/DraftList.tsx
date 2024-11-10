@@ -8,6 +8,8 @@ import {
 import { cn } from "@/lib/utils";
 import { Post } from "@prisma/client";
 import Link from "next/link";
+import { format } from "date-fns";
+import { Calendar } from "lucide-react";
 
 type Props = {
   drafts: Post[];
@@ -28,8 +30,9 @@ export const DraftList = ({ drafts, className }: Props) => {
                   {draft.title}
                 </Link>
               </CardTitle>
-              <CardDescription>
-                {draft.updatedAt.toDateString()}
+              <CardDescription className="flex gap-2 items-center">
+                <Calendar size={16} />
+                <span>{format(draft.updatedAt, "yyyy-MM-dd HH:mm")}</span>
               </CardDescription>
             </CardHeader>
             <CardContent>
