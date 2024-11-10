@@ -24,7 +24,7 @@ export const EditPostContainer = ({ post }: { post: Post }) => {
       });
 
       if (res.status === "success") {
-        router.push("/post/list");
+        router.push("/post/drafts");
       }
     });
   };
