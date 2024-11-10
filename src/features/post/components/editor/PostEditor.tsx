@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/form";
 import { Textarea } from "@/components/ui/textarea";
 import { useForm } from "react-hook-form";
-import { postFormSchema, PostFormSchemaType } from "../../postFormSchema";
+import { postFormSchema, PostFormSchemaType } from "./postFormSchema";
 import { Post } from "@prisma/client";
 
 type Props = {
