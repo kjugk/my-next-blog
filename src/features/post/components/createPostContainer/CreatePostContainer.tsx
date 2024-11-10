@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { PostFormSchemaType } from "../../postFormSchema";
+import { PostFormSchemaType } from "../editor/postFormSchema";
 import { useToast } from "@/hooks/use-toast";
 import { useTransition } from "react";
 import { createPost } from "../../serverFunctions/createPost";

@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { PostFormSchemaType } from "../../postFormSchema";
+import { PostFormSchemaType } from "../editor/postFormSchema";
 import { updatePost } from "../../serverFunctions/editPost";
 import { useToast } from "@/hooks/use-toast";
 import { useTransition } from "react";
@@ -24,7 +24,7 @@ export const EditPostContainer = ({ post }: { post: Post }) => {
       });
 
       if (res.status === "success") {
-        router.push("/post/list");
+        router.push("/post/drafts");
       }
     });
   };

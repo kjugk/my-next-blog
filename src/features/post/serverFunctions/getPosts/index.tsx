@@ -1,5 +1,16 @@
 import prisma from "@/lib/prisma";
 
-export const getPosts = async () => {
-  return await prisma.post.findMany();
+type Params = {
+  published?: boolean;
+};
+
+export const getPosts = async ({ published = true }: Params) => {
+  return await prisma.post.findMany({
+    where: {
+      published,
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
 };
