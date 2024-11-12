@@ -2,6 +2,7 @@ import {
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -10,6 +11,7 @@ import Link from "next/link";
 import { format } from "date-fns";
 import { Calendar } from "lucide-react";
 import { getPosts } from "../../serverFunctions/getPosts";
+import { DeletePostButton } from "../deletePostButton";
 
 type Props = {
   className?: string;
@@ -38,6 +40,9 @@ export const DraftList = async ({ className }: Props) => {
             <CardContent>
               <div className="line-clamp-2">{draft.body}</div>
             </CardContent>
+            <CardFooter className="flex justify-end">
+              <DeletePostButton id={draft.id} />
+            </CardFooter>
           </Card>
         </li>
       ))}
