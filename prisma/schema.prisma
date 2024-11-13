@@ -21,4 +21,5 @@ model Post {
   title     String
   body      String
   published Boolean  @default(false)
+  publishedAt DateTime?
 }
