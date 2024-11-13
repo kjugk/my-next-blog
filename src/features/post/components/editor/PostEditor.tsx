@@ -34,7 +34,7 @@ export const PostEditor = ({ post, onSubmit }: Props) => {
   const body = form.watch("body");
 
   return (
-    <div className="p-4 bg-base-200 h-screen">
+    <div className="h-full">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}

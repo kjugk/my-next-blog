@@ -8,6 +8,8 @@ import { useTransition } from "react";
 import { PostEditor } from "../editor/PostEditor";
 import { Post } from "@prisma/client";
 import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import { PublishConfirmDialog } from "../publishConfirmDialog";
 
 export const EditPostContainer = ({ post }: { post: Post }) => {
   const router = useRouter();
@@ -29,5 +31,14 @@ export const EditPostContainer = ({ post }: { post: Post }) => {
     });
   };
 
-  return <PostEditor post={post} onSubmit={handleSubmit} />;
+  return (
+    <div className="p-4 flex flex-col gap-4 h-screen">
+      <div className="flex justify-end">
+        <PublishConfirmDialog id={post.id} />
+      </div>
+      <div className="flex-1">
+        <PostEditor post={post} onSubmit={handleSubmit} />
+      </div>
+    </div>
+  );
 };
