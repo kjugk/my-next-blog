@@ -28,7 +28,7 @@ export const DraftList = async ({ className }: Props) => {
           <Card>
             <CardHeader>
               <CardTitle className="font-bold text-lg text-primary hover:underline decoration-2">
-                <Link className="block" href={`/post/edit/${draft.id}`}>
+                <Link className="block" href={`/admin/post/edit/${draft.id}`}>
                   {draft.title}
                 </Link>
               </CardTitle>
