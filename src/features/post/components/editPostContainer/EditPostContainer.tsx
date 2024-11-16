@@ -8,7 +8,6 @@ import { useTransition } from "react";
 import { PostEditor } from "../editor/PostEditor";
 import { Post } from "@prisma/client";
 import { useRouter } from "next/navigation";
-import { Button } from "@/components/ui/button";
 import { PublishConfirmDialog } from "../publishConfirmDialog";
 
 export const EditPostContainer = ({ post }: { post: Post }) => {
@@ -26,7 +25,7 @@ export const EditPostContainer = ({ post }: { post: Post }) => {
       });
 
       if (res.status === "success") {
-        router.push("/post/drafts");
+        router.push("/admin/drafts");
       }
     });
   };

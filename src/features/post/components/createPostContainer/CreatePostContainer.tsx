@@ -23,7 +23,7 @@ export const CreatePostContainer = () => {
       });
 
       if (res.status === "success") {
-        router.push("/post/list");
+        router.push("/admin/drafts");
       }
     });
   };
