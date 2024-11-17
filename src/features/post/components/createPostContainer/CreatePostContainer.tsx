@@ -28,5 +28,5 @@ export const CreatePostContainer = () => {
     });
   };
 
-  return <PostEditor onSubmit={handleSubmit} />;
+  return <PostEditor onSubmit={handleSubmit} mode="create" />;
 };
