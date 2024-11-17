@@ -45,7 +45,9 @@ export const PublishConfirmDialog = ({ id }: Props) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="default">公開</Button>
+        <Button variant="default" type="button">
+          公開
+        </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
