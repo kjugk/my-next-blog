@@ -1,0 +1,55 @@
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Post } from "@prisma/client";
+import { format } from "date-fns";
+import { Calendar } from "lucide-react";
+import Link from "next/link";
+import { DeletePostButton } from "../deletePostButton";
+
+interface Props {
+  post: Post;
+}
+
+function getDate(post: Post) {
+  const formatString = "yyyy-MM-dd HH:mm";
+
+  if (post.published) {
+    if (post.publishedAt === null) return null;
+
+    return format(post.publishedAt, formatString);
+  }
+
+  return format(post.updatedAt, formatString);
+}
+
+export const AdminPostListItem = ({ post }: Props) => {
+  return (
+    <li>
+      <Card>
+        <CardHeader>
+          <CardTitle className="font-bold text-lg text-primary hover:underline decoration-2">
+            <Link className="block" href={`/admin/post/edit/${post.id}`}>
+              {post.title}
+            </Link>
+          </CardTitle>
+          <CardDescription className="flex gap-2 items-center">
+            <Calendar size={16} />
+            <span>{getDate(post)}</span>
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="line-clamp-2">{post.body}</div>
+        </CardContent>
+        <CardFooter className="flex justify-end">
+          <DeletePostButton id={post.id} />
+        </CardFooter>
+      </Card>
+    </li>
+  );
+};
