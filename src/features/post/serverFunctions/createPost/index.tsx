@@ -3,6 +3,7 @@
 import prisma from "@/lib/prisma";
 import { ServerFunctionResponse } from "@/types";
 import { Post } from "@prisma/client";
+import { revalidateTag } from "next/cache";
 
 export const createPost = async (
   title: string,
@@ -15,6 +16,8 @@ export const createPost = async (
         body,
       },
     });
+
+    revalidateTag("posts");
 
     return {
       status: "success",

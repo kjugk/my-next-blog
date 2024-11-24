@@ -16,7 +16,7 @@ interface Props {
   post: Post;
 }
 
-function getDate(post: Post) {
+function getDate(post: Post): string | null {
   const formatString = "yyyy-MM-dd HH:mm";
 
   if (post.published) {

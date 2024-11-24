@@ -3,6 +3,7 @@
 import prisma from "@/lib/prisma";
 import { ServerFunctionResponse } from "@/types";
 import { Post } from "@prisma/client";
+import { revalidateTag } from "next/cache";
 
 export const deletePost = async (
   id: number,
@@ -13,6 +14,8 @@ export const deletePost = async (
         id,
       },
     });
+
+    revalidateTag("posts");
 
     return {
       status: "success",
