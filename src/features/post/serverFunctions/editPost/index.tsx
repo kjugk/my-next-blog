@@ -3,7 +3,7 @@
 import prisma from "@/lib/prisma";
 import { ServerFunctionResponse } from "@/types";
 import { Post } from "@prisma/client";
-import { revalidatePath } from "next/cache";
+import { revalidateTag } from "next/cache";
 
 export const updatePost = async (
   id: number,
@@ -21,7 +21,7 @@ export const updatePost = async (
       },
     });
 
-    revalidatePath("/post/drafts");
+    revalidateTag("posts");
 
     return {
       status: "success",
