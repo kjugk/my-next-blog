@@ -6,9 +6,7 @@ export const Header = () => {
   return (
     <header>
       <div className="px-4 py-5 flex items-center gap-12">
-        <h1 className={`${bokor.className} font-bokor font-bold text-3xl`}>
-          My Next Blog
-        </h1>
+        <h1 className={`${bokor.className} text-3xl`}>My Next Blog</h1>
         <nav className="flex-1">
           <ul className="flex gap-4">
             <li>
