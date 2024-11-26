@@ -13,7 +13,9 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        notoSansJp: ["var(--font-noto-sans-jp)"],
+        ibmPlexSans: ["var(--font-ibm-plex-sans-jp)"],
+        bokor: ["var(--font-bokor)"],
+        body: '-apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN","Hiragino Sans", Meiryo, sans-serif, "Segoe UI Emoji"',
       },
 
       borderRadius: {

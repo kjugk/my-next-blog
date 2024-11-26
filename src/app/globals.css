@@ -66,14 +66,10 @@
 
   body {
     background-color: #fafcfc;
-    font-family:
-      var(--font-noto-sans-jp),
-      -apple-system,
-      BlinkMacSystemFont,
-      "Hiragino Kaku Gothic ProN",
-      "Hiragino Sans",
-      Meiryo,
-      sans-serif,
-      "Segoe UI Emoji";
+  }
+
+  hr {
+    border-top: 1px solid;
+    border-color: hsl(var(--primary));
   }
 }
