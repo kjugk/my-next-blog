@@ -4,6 +4,7 @@ import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { Container } from "@/components/layout/container/Container";
 import { Header } from "@/components/navigation/header/Header";
+import { ibmPlexSansJp } from "./fonts";
 
 export const metadata: Metadata = {
   title: "My Next Blog",
@@ -17,7 +18,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja" suppressHydrationWarning>
-      <body>
+      <body className={`${ibmPlexSansJp.className} font-body`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

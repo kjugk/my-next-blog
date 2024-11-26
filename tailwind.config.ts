@@ -12,6 +12,12 @@ const config: Config = {
   plugins: [typography, require("tailwindcss-animate")],
   theme: {
     extend: {
+      fontFamily: {
+        ibmPlexSans: ["var(--font-ibm-plex-sans-jp)"],
+        bokor: ["var(--font-bokor)"],
+        body: '-apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN","Hiragino Sans", Meiryo, sans-serif, "Segoe UI Emoji"',
+      },
+
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
