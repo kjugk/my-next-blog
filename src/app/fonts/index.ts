@@ -1,4 +1,4 @@
-import { Bokor, IBM_Plex_Sans_JP, Oswald } from "next/font/google";
+import { Bokor, IBM_Plex_Sans_JP } from "next/font/google";
 
 export const ibmPlexSansJp = IBM_Plex_Sans_JP({
   weight: ["400", "500"],
@@ -12,10 +12,4 @@ export const bokor = Bokor({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-bokor",
-});
-
-export const oswald = Oswald({
-  weight: ["400"],
-  subsets: ["latin"],
-  display: "swap",
 });
