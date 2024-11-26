@@ -12,6 +12,10 @@ const config: Config = {
   plugins: [typography, require("tailwindcss-animate")],
   theme: {
     extend: {
+      fontFamily: {
+        notoSansJp: ["var(--font-noto-sans-jp)"],
+      },
+
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",

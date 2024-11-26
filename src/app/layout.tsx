@@ -4,6 +4,14 @@ import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { Container } from "@/components/layout/container/Container";
 import { Header } from "@/components/navigation/header/Header";
+import { Noto_Sans_JP } from "next/font/google";
+
+const notoSansJp = Noto_Sans_JP({
+  weight: ["400", "700"],
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-noto-sans-jp",
+});
 
 export const metadata: Metadata = {
   title: "My Next Blog",
@@ -16,7 +24,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ja" suppressHydrationWarning>
+    <html lang="ja" className={notoSansJp.className} suppressHydrationWarning>
       <body>
         <ThemeProvider
           attribute="class"
