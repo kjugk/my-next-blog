@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { ThemeProvider } from "next-themes";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
-import { Container } from "@/components/layout/container/Container";
 import { Header } from "@/components/navigation/header/Header";
 import { ibmPlexSansJp } from "./fonts";
 
@@ -25,9 +24,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Container>
-            <Header />
-          </Container>
+          <Header />
           {children}
           <Toaster />
         </ThemeProvider>
