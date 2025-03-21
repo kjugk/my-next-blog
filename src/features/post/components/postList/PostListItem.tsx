@@ -2,7 +2,6 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -10,7 +9,6 @@ import { Post } from "@prisma/client";
 import { format } from "date-fns";
 import { Calendar } from "lucide-react";
 import Link from "next/link";
-import { DeletePostButton } from "../deletePostButton";
 
 interface Props {
   post: Post;
