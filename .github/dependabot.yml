@@ -16,6 +16,8 @@ updates:
       group-name: "all-minor-patch-updates"
       patterns:
         - "*"
+    labels:
+      - "dependabot"
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
@@ -28,3 +30,5 @@ updates:
       prefix: "deps"
     target-branch: "main"
     rebase-strategy: "auto"
+    labels:
+      - "dependabot"
