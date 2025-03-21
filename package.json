@@ -6,8 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "format": "prettier . --write",
+    "lint": "npm run format:check && eslint .",
+    "format:check": "prettier --check .",
+    "format:fix": "prettier . --write",
     "test": "vitest",
     "test:ui": "vitest --ui"
   },
