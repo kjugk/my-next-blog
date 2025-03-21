@@ -21,3 +21,25 @@ jobs:
               pull_number: context.payload.pull_request.number,
               reviewers: [randomReviewer],
             });
+
+  add-app-label:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Add "app" label if src directory is updated
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const files = await github.rest.pulls.listFiles({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.payload.pull_request.number,
+            });
+            const hasSrcChanges = files.data.some(file => file.filename.startsWith('src/'));
+            if (hasSrcChanges) {
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.payload.pull_request.number,
+                labels: ["app"],
+              });
+            }
