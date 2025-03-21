@@ -1,0 +1,30 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+      day: "last"
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+    commit-message:
+      prefix: "deps"
+    target-branch: "main"
+    rebase-strategy: "auto"
+    group:
+      group-name: "all-minor-patch-updates"
+      patterns:
+        - "*"
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+      day: "last"
+    allow:
+      - dependency-type: "direct"
+        update-types: ["version-update:semver-major"]
+    commit-message:
+      prefix: "deps"
+    target-branch: "main"
+    rebase-strategy: "auto"
