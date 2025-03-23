@@ -33,7 +33,7 @@ export const PostListItem = ({ post }: Props) => {
       <Card>
         <CardHeader>
           <CardTitle className="font-bold text-lg text-primary hover:underline decoration-2">
-            <Link className="block" href={`/admin/post/edit/${post.id}`}>
+            <Link className="block" href={`/posts/${post.id}`}>
               {post.title}
             </Link>
           </CardTitle>
