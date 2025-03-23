@@ -24,6 +24,26 @@ const config: Config = {
         sm: "calc(var(--radius) - 4px)",
       },
 
+      typography: {
+        DEFAULT: {
+          css: {
+            code: {
+              color: "hsl(var(--primary))",
+              fontWeight: "400",
+              "border-radius": "0.25rem",
+            },
+            "code::before": {
+              content: '""',
+              "padding-left": "0.25rem",
+            },
+            "code::after": {
+              content: '""',
+              "padding-right": "0.25rem",
+            },
+          },
+        },
+      },
+
       colors: {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
