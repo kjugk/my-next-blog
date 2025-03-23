@@ -17,8 +17,10 @@ export default function RootLayout({
   return (
     <html lang="ja" suppressHydrationWarning>
       <body className={`${ibmPlexSansJp.className} font-body`}>
-        <Header />
-        {children}
+        <div className="h-full flex flex-col">
+          <Header />
+          {children}
+        </div>
         <Toaster />
       </body>
     </html>
