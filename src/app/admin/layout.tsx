@@ -3,5 +3,5 @@ export default function AdminLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <div className="py-8 px-4">{children}</div>;
+  return <div className="py-8 px-4 flex-1">{children}</div>;
 }
