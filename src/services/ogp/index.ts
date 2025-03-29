@@ -1,12 +1,9 @@
 import puppeteer from "puppeteer";
-import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
-
-const createKey = (title: string) => {
-  return `ogp/${encodeURIComponent(title)}.png`;
-};
+import { PutObjectCommand } from "@aws-sdk/client-s3";
+import { createS3Client } from "../s3";
 
 export const getOgpUrl = (title: string) => {
-  const key = createKey(`${title.replace(/\s+/g, "")}`);
+  const key = `ogp/${encodeURIComponent(title.replace(/\s+/g, ""))}.png`;
   return `https://${process.env.AWS_BUCKET_DOMAIN}/${key}`;
 };
 
@@ -35,14 +32,8 @@ export const uploadOgpImage = async (
   imageBuffer: Uint8Array<ArrayBufferLike>,
   title: string,
 ) => {
-  const key = `ogp/${title.replace(/\s+/g, "")}.png`;
-  const s3Client = new S3Client({
-    region: process.env.AWS_REGION || "",
-    credentials: {
-      accessKeyId: process.env.AWS_ACCESS_KEY_ID || "",
-      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || "",
-    },
-  });
+  const key = `${title.replace(/\s+/g, "")}.png`;
+  const s3Client = createS3Client();
 
   const command = new PutObjectCommand({
     Bucket: process.env.AWS_BUCKET_NAME || "",
