@@ -1,9 +1,38 @@
 import { Container } from "@/components/layout/container/Container";
 import PostContent from "@/features/post/components/postContent/PostContent";
 import { getPost } from "@/features/post/serverFunctions/getPost";
+import { getOgpUrl } from "@/services/ogp";
 import { Suspense } from "react";
+import { Metadata } from "next";
 
-const PostPage = async ({ params }: { params: Promise<{ id: string }> }) => {
+type Params = {
+  id: string;
+};
+
+export const generateMetadata = async ({
+  params,
+}: {
+  params: Params;
+}): Promise<Metadata> => {
+  const { id } = await params;
+  const post = await getPost(id);
+
+  if (!post) {
+    return {
+      title: "Post not found",
+    };
+  }
+
+  return {
+    title: post.title,
+    openGraph: {
+      title: post.title,
+      images: getOgpUrl(post.title),
+    },
+  };
+};
+
+const PostPage = async ({ params }: { params: Params }) => {
   const { id } = await params;
   const post = await getPost(id);
 

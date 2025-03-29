@@ -6,7 +6,7 @@ const createKey = (title: string) => {
 };
 
 export const getOgpUrl = (title: string) => {
-  const key = createKey(title);
+  const key = createKey(`${title.replace(/\s+/g, "")}`);
   return `https://${process.env.AWS_BUCKET_DOMAIN}/${key}`;
 };
 
@@ -35,7 +35,7 @@ export const uploadOgpImage = async (
   imageBuffer: Uint8Array<ArrayBufferLike>,
   title: string,
 ) => {
-  const key = createKey(title);
+  const key = `ogp/${title.replace(/\s+/g, "")}.png`;
   const s3Client = new S3Client({
     region: process.env.AWS_REGION || "",
     credentials: {
@@ -53,5 +53,5 @@ export const uploadOgpImage = async (
 
   await s3Client.send(command);
 
-  return getOgpUrl(title);
+  return key;
 };
