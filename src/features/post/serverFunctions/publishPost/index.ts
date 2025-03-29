@@ -1,13 +1,18 @@
 "use server";
 
 import prisma from "@/lib/prisma";
+import { generateOgpImage, uploadOgpImage } from "@/services/ogp";
 import { ServerFunctionResponse } from "@/types";
 import { Post } from "@prisma/client";
 import { revalidateTag } from "next/cache";
 
 export const publishPost = async (
   id: number,
+  title: string,
 ): Promise<ServerFunctionResponse<Post>> => {
+  const ogpImage = await generateOgpImage(title);
+  await uploadOgpImage(ogpImage, title);
+
   try {
     const post = await prisma.post.update({
       where: {
