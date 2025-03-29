@@ -18,9 +18,10 @@ import { publishPost } from "../../serverFunctions/publishPost";
 
 type Props = {
   id: number;
+  title: string;
 };
 
-export const PublishConfirmDialog = ({ id }: Props) => {
+export const PublishConfirmDialog = ({ id, title }: Props) => {
   const router = useRouter();
   const [pending, startTransition] = useTransition();
   const [open, setOpen] = useState(false);
@@ -28,7 +29,7 @@ export const PublishConfirmDialog = ({ id }: Props) => {
 
   const handlePublish = () => {
     startTransition(async () => {
-      const { message, status } = await publishPost(id);
+      const { message, status } = await publishPost(id, title);
 
       toast({
         title: message,
