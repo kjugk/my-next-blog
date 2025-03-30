@@ -17,6 +17,7 @@ import { postFormSchema, PostFormSchemaType } from "./postFormSchema";
 import { Post } from "@prisma/client";
 import { PublishConfirmDialog } from "../publishConfirmDialog";
 import { Button } from "@/components/ui/button";
+import { uploadFileToS3 } from "../../serverFunctions/uploadImage";
 
 type Props = {
   post?: Post;
@@ -75,6 +76,28 @@ export const PostEditor = ({ post, mode, onSubmit }: Props) => {
                 </FormItem>
               )}
             />
+            {/* Add image selection button */}
+            <Button
+              type="button"
+              onClick={() => {
+                // Logic to open image selection dialog
+                const input = document.createElement("input");
+                input.type = "file";
+                input.accept = "image/*";
+                input.onchange = (event) => {
+                  const file = (event.target as HTMLInputElement).files?.[0];
+                  if (file) {
+                    console.log("Selected file:", file);
+                    uploadFileToS3(file).then((url) => {
+                      console.log(url);
+                    });
+                  }
+                };
+                input.click();
+              }}
+            >
+              画像を選択
+            </Button>
 
             <HtmlPreview body={body} />
           </div>
