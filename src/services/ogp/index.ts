@@ -3,7 +3,7 @@ import { PutObjectCommand } from "@aws-sdk/client-s3";
 import { createS3Client } from "../s3";
 
 export const getOgpUrl = (title: string) => {
-  const key = `${encodeURIComponent(title.replace(/\s+/g, ""))}.png`;
+  const key = `ogp/${encodeURIComponent(title.replace(/\s+/g, ""))}.png`;
   const domain = process.env.AWS_ENDPOINT;
   return `${domain}/${process.env.AWS_BUCKET_NAME}/${key}`;
 };
@@ -33,7 +33,7 @@ export const uploadOgpImage = async (
   imageBuffer: Uint8Array<ArrayBufferLike>,
   title: string,
 ) => {
-  const key = `${title.replace(/\s+/g, "")}.png`;
+  const key = `ogp/${title.replace(/\s+/g, "")}.png`;
   const s3Client = createS3Client();
 
   const command = new PutObjectCommand({
