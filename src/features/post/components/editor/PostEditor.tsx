@@ -17,7 +17,8 @@ import { postFormSchema, PostFormSchemaType } from "./postFormSchema";
 import { Post } from "@prisma/client";
 import { PublishConfirmDialog } from "../publishConfirmDialog";
 import { Button } from "@/components/ui/button";
-import { uploadFileToS3 } from "../../serverFunctions/uploadImage";
+import { useRef } from "react";
+import { ImageUploadButton } from "./ImageUploadButton";
 
 type Props = {
   post?: Post;
@@ -26,6 +27,7 @@ type Props = {
 };
 
 export const PostEditor = ({ post, mode, onSubmit }: Props) => {
+  const textAreaRef = useRef<HTMLTextAreaElement>(null);
   const form = useForm<PostFormSchemaType>({
     resolver: zodResolver(postFormSchema),
     defaultValues: post
@@ -63,47 +65,40 @@ export const PostEditor = ({ post, mode, onSubmit }: Props) => {
           />
 
           <div className="grid grid-cols-2 gap-4 flex-1 overflow-hidden p-1">
-            <FormField
-              control={form.control}
-              name="body"
-              render={({ field }) => (
-                <FormItem className="h-full flex flex-col ">
-                  <FormLabel>本文</FormLabel>
-                  <FormControl>
-                    <Textarea {...field} className="h-full"></Textarea>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <Button
-              type="button"
-              onClick={() => {
-                const input = document.createElement("input");
-                input.type = "file";
-                input.accept = "image/*";
-                input.onchange = (event) => {
-                  const file = (event.target as HTMLInputElement).files?.[0];
-                  if (file) {
-                    uploadFileToS3(file).then((url) => {
-                      const textarea = document.querySelector("textarea");
-                      if (textarea) {
-                        const cursorPosition = textarea.selectionStart || 0;
-                        const markdownImage = `![image](${url})`;
-                        const updatedBody =
-                          body.slice(0, cursorPosition) +
-                          markdownImage +
-                          body.slice(cursorPosition);
-                        form.setValue("body", updatedBody);
-                      }
-                    });
+            <div className="space-y-2">
+              <ImageUploadButton
+                onUploadCompleted={({ url, fileName }) => {
+                  const textarea = textAreaRef.current;
+                  if (textarea) {
+                    const cursorPosition = textarea.selectionStart || 0;
+                    const markdownImage = `![${fileName}](${url})`;
+                    const updatedBody =
+                      body.slice(0, cursorPosition) +
+                      "\n" +
+                      markdownImage +
+                      "\n" +
+                      body.slice(cursorPosition);
+                    form.setValue("body", updatedBody);
                   }
-                };
-                input.click();
-              }}
-            >
-              画像を選択
-            </Button>
+                }}
+              />
+              <FormField
+                control={form.control}
+                name="body"
+                render={({ field }) => (
+                  <FormItem className="h-full flex flex-col ">
+                    <FormControl>
+                      <Textarea
+                        {...field}
+                        ref={textAreaRef}
+                        className="h-full"
+                      ></Textarea>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
 
             <HtmlPreview body={body} />
           </div>
