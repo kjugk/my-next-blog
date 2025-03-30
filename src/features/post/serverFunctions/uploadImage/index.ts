@@ -5,9 +5,8 @@ import { PutObjectCommand } from "@aws-sdk/client-s3";
 
 export async function uploadFileToS3(file: File): Promise<string> {
   const s3 = createS3Client();
-  const key = `post-image/${Date.now()}-${file.name}`;
-
-  // File 型のデータを Buffer に変換
+  // TODO: uuid を使うか検討する
+  const key = `post-image/${Date.now()}-${Math.random().toString(36).substring(2, 15)}`;
   const buffer = Buffer.from(await file.arrayBuffer());
 
   const command = new PutObjectCommand({

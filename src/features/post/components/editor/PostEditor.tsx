@@ -76,20 +76,26 @@ export const PostEditor = ({ post, mode, onSubmit }: Props) => {
                 </FormItem>
               )}
             />
-            {/* Add image selection button */}
             <Button
               type="button"
               onClick={() => {
-                // Logic to open image selection dialog
                 const input = document.createElement("input");
                 input.type = "file";
                 input.accept = "image/*";
                 input.onchange = (event) => {
                   const file = (event.target as HTMLInputElement).files?.[0];
                   if (file) {
-                    console.log("Selected file:", file);
                     uploadFileToS3(file).then((url) => {
-                      console.log(url);
+                      const textarea = document.querySelector("textarea");
+                      if (textarea) {
+                        const cursorPosition = textarea.selectionStart || 0;
+                        const markdownImage = `![image](${url})`;
+                        const updatedBody =
+                          body.slice(0, cursorPosition) +
+                          markdownImage +
+                          body.slice(cursorPosition);
+                        form.setValue("body", updatedBody);
+                      }
                     });
                   }
                 };
