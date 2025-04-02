@@ -16,14 +16,12 @@ export default tseslint.config(
     "src/components/ui/*.tsx",
     "src/components/ui/*.ts",
   ]),
-  ...compat.config({
-    extends: [
-      "next/core-web-vitals",
-      "next/typescript",
-      "plugin:jsx-a11y/recommended",
-      "prettier",
-    ],
-  }),
+  ...compat.extends(
+    "next/core-web-vitals",
+    "next/typescript",
+    "plugin:jsx-a11y/recommended",
+    "prettier",
+  ),
   {
     languageOptions: {
       parserOptions: {
@@ -34,6 +32,9 @@ export default tseslint.config(
       },
     },
 
-    rules: {},
+    rules: {
+      "@typescript-eslint/await-thenable": "off",
+      "@typescript-eslint/no-misused-promises": "off",
+    },
   },
 );

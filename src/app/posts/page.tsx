@@ -2,7 +2,7 @@ import { Container } from "@/components/layout/container/Container";
 import { PostList } from "@/features/post/components/postList/PostList";
 import { Suspense } from "react";
 
-export default async function Page() {
+export default function Page() {
   return (
     <div className="container mx-auto">
       <Container>

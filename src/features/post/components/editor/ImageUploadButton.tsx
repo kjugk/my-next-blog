@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { uploadFileToS3 } from "../../serverFunctions/uploadImage";
-import { Image } from "lucide-react";
+import { Image as ImageIcon } from "lucide-react";
 
 type Props = {
   onUploadCompleted: (result: { url: string; fileName: string }) => void;
@@ -18,7 +18,7 @@ export const ImageUploadButton = ({ onUploadCompleted }: Props) => {
         const input = document.createElement("input");
         input.type = "file";
         input.accept = "image/*";
-        input.onchange = (event) => {
+        input.onchange = async (event) => {
           const file = (event.target as HTMLInputElement).files?.[0];
           if (file) {
             if (file.size > MAX_FILE_SIZE) {
@@ -27,18 +27,18 @@ export const ImageUploadButton = ({ onUploadCompleted }: Props) => {
               );
               return;
             }
-            uploadFileToS3(file).then((url) => {
-              onUploadCompleted({
-                url,
-                fileName: file.name,
-              });
+
+            const url = await uploadFileToS3(file);
+            onUploadCompleted({
+              url,
+              fileName: file.name,
             });
           }
         };
         input.click();
       }}
     >
-      <Image />
+      <ImageIcon />
     </Button>
   );
 };

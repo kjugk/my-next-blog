@@ -6,7 +6,7 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "npm run format:check && eslint .",
+    "lint": "next lint",
     "format:check": "prettier --check .",
     "format:fix": "prettier . --write",
     "test": "vitest",

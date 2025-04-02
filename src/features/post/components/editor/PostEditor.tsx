@@ -23,7 +23,7 @@ import { ImageUploadButton } from "./ImageUploadButton";
 type Props = {
   post?: Post;
   mode: "create" | "edit";
-  onSubmit(values: PostFormSchemaType): void;
+  onSubmit: (values: PostFormSchemaType) => void;
 };
 
 export const PostEditor = ({ post, mode, onSubmit }: Props) => {
