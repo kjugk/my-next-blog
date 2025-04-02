@@ -12,7 +12,7 @@ type Params = {
 export const generateMetadata = async ({
   params,
 }: {
-  params: Params;
+  params: Promise<Params>;
 }): Promise<Metadata> => {
   const { id } = await params;
   const post = await getPost(id);
@@ -32,7 +32,7 @@ export const generateMetadata = async ({
   };
 };
 
-const PostPage = async ({ params }: { params: Params }) => {
+const PostPage = async ({ params }: { params: Promise<Params> }) => {
   const { id } = await params;
   const post = await getPost(id);
 

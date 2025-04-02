@@ -26,10 +26,10 @@ function cleanUrl(href: string) {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const renderer: any = {
   link({ href, title, tokens }: Tokens.Link): string {
-    const text = this.parser.parseInline(tokens);
+    const text = this.parser.parseInline(tokens); // eslint-disable-line
     const cleanHref = cleanUrl(href);
     if (cleanHref === null) {
-      return text;
+      return text; // eslint-disable-line
     }
     href = cleanHref;
     let out = '<a class="link link-primary" href="' + href + '"';
@@ -54,7 +54,7 @@ export function getMarkedInstance() {
       }),
     );
 
-    _instance.use({ breaks: true, renderer });
+    _instance.use({ breaks: true, renderer }); // eslint-disable-line
 
     instance = _instance;
   }

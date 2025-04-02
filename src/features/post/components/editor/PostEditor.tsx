@@ -23,7 +23,7 @@ import { ImageUploadButton } from "./ImageUploadButton";
 type Props = {
   post?: Post;
   mode: "create" | "edit";
-  onSubmit(values: PostFormSchemaType): void;
+  onSubmit: (values: PostFormSchemaType) => void;
 };
 
 export const PostEditor = ({ post, mode, onSubmit }: Props) => {
@@ -41,6 +41,7 @@ export const PostEditor = ({ post, mode, onSubmit }: Props) => {
 
   return (
     <Form {...form}>
+      {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
       <form onSubmit={form.handleSubmit(onSubmit)} className="h-full">
         <div className="py-4 flex flex-col gap-4 h-full">
           <div className="flex justify-end gap-2">

@@ -1,7 +1,7 @@
 import { AdminPostList } from "@/features/post/components/adminPostList/AdminPostList";
 import { Suspense } from "react";
 
-export default async function Page() {
+export default function Page() {
   return (
     <div className="container mx-auto">
       <h1 className="text-3xl font-bold">下書き一覧</h1>

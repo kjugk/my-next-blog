@@ -17,12 +17,12 @@ const PostContent: React.FC<{ post: Post }> = ({ post }) => {
       button.className = `${buttonClassName} border rounded border-white px-2`;
       button.style.marginLeft = "8px";
 
-      button.addEventListener("click", () => {
+      // eslint-disable-next-line @typescript-eslint/no-misused-promises
+      button.addEventListener("click", async () => {
         const code = pre.querySelector("code")?.textContent || "";
-        navigator.clipboard.writeText(code).then(() => {
-          button.textContent = "Copied!";
-          setTimeout(() => (button.textContent = "Copy"), 2000);
-        });
+        await navigator.clipboard.writeText(code);
+        button.textContent = "Copied!";
+        setTimeout(() => (button.textContent = "Copy"), 2000);
       });
 
       if (!pre.querySelector(`.${buttonClassName}`)) {
