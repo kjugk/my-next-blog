@@ -32,9 +32,6 @@ export default tseslint.config(
       },
     },
 
-    rules: {
-      "@typescript-eslint/await-thenable": "off",
-      "@typescript-eslint/no-misused-promises": "off",
-    },
+    rules: {},
   },
 );

@@ -17,6 +17,7 @@ const PostContent: React.FC<{ post: Post }> = ({ post }) => {
       button.className = `${buttonClassName} border rounded border-white px-2`;
       button.style.marginLeft = "8px";
 
+      // eslint-disable-next-line @typescript-eslint/no-misused-promises
       button.addEventListener("click", async () => {
         const code = pre.querySelector("code")?.textContent || "";
         await navigator.clipboard.writeText(code);
