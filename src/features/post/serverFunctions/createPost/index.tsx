@@ -8,12 +8,27 @@ import { revalidateTag } from "next/cache";
 export const createPost = async (
   title: string,
   body: string,
+  tags: string[],
 ): Promise<ServerFunctionResponse<Post>> => {
   try {
     const post = await prisma.post.create({
       data: {
         title,
         body,
+        tags: {
+          create: tags.map((tag) => ({
+            tag: {
+              connectOrCreate: {
+                where: {
+                  name: tag,
+                },
+                create: {
+                  name: tag,
+                },
+              },
+            },
+          })),
+        },
       },
     });
 

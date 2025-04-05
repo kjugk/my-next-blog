@@ -5,5 +5,8 @@ export const getPost = async (id: string) => {
     where: {
       id: Number(id),
     },
+    include: {
+      tags: true,
+    },
   });
 };
