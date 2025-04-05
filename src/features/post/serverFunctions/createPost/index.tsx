@@ -2,14 +2,14 @@
 
 import prisma from "@/lib/prisma";
 import { ServerFunctionResponse } from "@/types";
-import { Post } from "@prisma/client";
+import { Post, Tag } from "@prisma/client";
 import { revalidateTag } from "next/cache";
 
 export const createPost = async (
   title: string,
   body: string,
   tags: string[],
-): Promise<ServerFunctionResponse<Post>> => {
+): Promise<ServerFunctionResponse<Post & { tags: Tag[] }>> => {
   try {
     const post = await prisma.post.create({
       data: {
@@ -21,6 +21,9 @@ export const createPost = async (
             create: { name: tag },
           })),
         },
+      },
+      include: {
+        tags: true,
       },
     });
 

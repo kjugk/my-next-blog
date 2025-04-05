@@ -18,7 +18,10 @@ export const CreatePostContainer = () => {
       const res = await createPost(
         values.title,
         values.body,
-        values.tags ?? [],
+        values.tags
+          .split(",")
+          .map((t) => t.trim())
+          .filter((t) => t !== ""),
       );
 
       toast({

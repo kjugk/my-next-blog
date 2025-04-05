@@ -14,14 +14,16 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { useForm } from "react-hook-form";
 import { postFormSchema, PostFormSchemaType } from "./postFormSchema";
-import { Post } from "@prisma/client";
+import { Post, Tag } from "@prisma/client";
 import { PublishConfirmDialog } from "../publishConfirmDialog";
 import { Button } from "@/components/ui/button";
 import { useRef } from "react";
 import { ImageUploadButton } from "./ImageUploadButton";
 
 type Props = {
-  post?: Post;
+  post?: Post & {
+    tags: Tag[];
+  };
   mode: "create" | "edit";
   onSubmit: (values: PostFormSchemaType) => void;
 };
@@ -31,10 +33,11 @@ export const PostEditor = ({ post, mode, onSubmit }: Props) => {
   const form = useForm<PostFormSchemaType>({
     resolver: zodResolver(postFormSchema),
     defaultValues: post
-      ? { ...post }
+      ? { ...post, tags: post.tags.map((t) => t.name).join(",") }
       : {
           title: "",
           body: "",
+          tags: "",
         },
   });
   const body = form.watch("body");
@@ -57,6 +60,20 @@ export const PostEditor = ({ post, mode, onSubmit }: Props) => {
             render={({ field }) => (
               <FormItem className="p1">
                 <FormLabel htmlFor="title">タイトル</FormLabel>
+                <FormControl>
+                  <Input {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="tags"
+            render={({ field }) => (
+              <FormItem className="p1">
+                <FormLabel htmlFor="title">タグ</FormLabel>
                 <FormControl>
                   <Input {...field} />
                 </FormControl>
