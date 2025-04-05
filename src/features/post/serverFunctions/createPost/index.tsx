@@ -16,17 +16,9 @@ export const createPost = async (
         title,
         body,
         tags: {
-          create: tags.map((tag) => ({
-            tag: {
-              connectOrCreate: {
-                where: {
-                  name: tag,
-                },
-                create: {
-                  name: tag,
-                },
-              },
-            },
+          connectOrCreate: tags.map((tag) => ({
+            where: { name: tag },
+            create: { name: tag },
           })),
         },
       },
