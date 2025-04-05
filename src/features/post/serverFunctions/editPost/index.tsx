@@ -9,6 +9,7 @@ export const updatePost = async (
   id: number,
   title: string,
   body: string,
+  tags: string[],
 ): Promise<ServerFunctionResponse<Post>> => {
   try {
     const post = await prisma.post.update({
@@ -18,6 +19,12 @@ export const updatePost = async (
       data: {
         title,
         body,
+        tags: {
+          connectOrCreate: tags.map((tag) => ({
+            where: { name: tag },
+            create: { name: tag },
+          })),
+        },
       },
     });
 

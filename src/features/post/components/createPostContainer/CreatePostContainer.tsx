@@ -15,7 +15,14 @@ export const CreatePostContainer = () => {
 
   const handleSubmit = (values: PostFormSchemaType) => {
     startTransition(async () => {
-      const res = await createPost(values.title, values.body);
+      const res = await createPost(
+        values.title,
+        values.body,
+        values.tags
+          .split(",")
+          .map((t) => t.trim())
+          .filter((t) => t !== ""),
+      );
 
       toast({
         title: res.message,
