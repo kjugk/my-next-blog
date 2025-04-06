@@ -3,32 +3,18 @@ updates:
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
-      interval: "monthly"
-      day: "last"
-    ignore:
-      - dependency-name: "*"
-        update-types: ["version-update:semver-major"]
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "Asia/Tokyo"
     commit-message:
       prefix: "deps"
     target-branch: "main"
     rebase-strategy: "auto"
-    group:
-      group-name: "all-minor-patch-updates"
-      patterns:
-        - "*"
-    labels:
-      - "dependabot"
-  - package-ecosystem: "npm"
-    directory: "/"
-    schedule:
-      interval: "monthly"
-      day: "last"
     allow:
       - dependency-type: "direct"
-        update-types: ["version-update:semver-major"]
-    commit-message:
-      prefix: "deps"
-    target-branch: "main"
-    rebase-strategy: "auto"
-    labels:
-      - "dependabot"
+    groups:
+      all-minor-patch-updates:
+        update-types:
+          - "minor"
+          - "patch"
