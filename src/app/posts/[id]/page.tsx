@@ -1,4 +1,3 @@
-import { Container } from "@/components/layout/container/Container";
 import PostContent from "@/features/post/components/postContent/PostContent";
 import { getPost } from "@/features/post/serverFunctions/getPost";
 import { getOgpUrl } from "@/services/ogp";
@@ -41,11 +40,11 @@ const PostPage = async ({ params }: { params: Promise<Params> }) => {
   }
 
   return (
-    <Container>
+    <main className="container py-8">
       <Suspense fallback={<div>Loading post...</div>}>
         <PostContent post={post} />
       </Suspense>
-    </Container>
+    </main>
   );
 };
 

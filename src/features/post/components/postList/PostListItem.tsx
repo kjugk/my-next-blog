@@ -1,10 +1,3 @@
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { Post } from "@prisma/client";
 import { format } from "date-fns";
 import { Calendar } from "lucide-react";
@@ -29,23 +22,18 @@ function getDate(post: Post): string | null {
 export const PostListItem = ({ post }: Props) => {
   return (
     <li>
-      {/* TODO: 抽象的な List として切り出す */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="font-bold text-lg text-primary hover:underline decoration-2">
-            <Link className="block" href={`/posts/${post.id}`}>
-              {post.title}
-            </Link>
-          </CardTitle>
-          <CardDescription className="flex gap-2 items-center">
-            <Calendar size={16} />
-            <span>{getDate(post)}</span>
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="line-clamp-2">{post.body}</div>
-        </CardContent>
-      </Card>
+      <Link className="block group" href={`/posts/${post.id}`}>
+        <h2 className="font-bold text-primary text-xl group-hover:underline underline-offset-3">
+          {post.title}
+        </h2>
+
+        <div className="flex items-center gap-2 text-xs text-muted-foreground mt-1">
+          <Calendar size={16} />
+          <span>{getDate(post)}</span>
+        </div>
+
+        <div className="line-clamp-3 mt-3">{post.body}</div>
+      </Link>
     </li>
   );
 };

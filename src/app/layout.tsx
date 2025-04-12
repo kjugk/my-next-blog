@@ -17,7 +17,8 @@ export default function RootLayout({
   return (
     <html lang="ja" suppressHydrationWarning>
       <body className={`${ibmPlexSansJp.className} font-body`}>
-        <div className="h-full flex flex-col">
+        <div className="h-dvh flex flex-col">
+          {/* TODO: Admin 用のレイアウトを作成して、Header を分離する */}
           <Header />
           {children}
         </div>
