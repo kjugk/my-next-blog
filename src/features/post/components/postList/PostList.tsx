@@ -8,7 +8,7 @@ type Props = {
 
 export const PostList = async ({ className }: Props) => {
   const posts = await getPosts({ published: true });
-  const listClassName = cn("space-y-4", className);
+  const listClassName = cn("space-y-10", className);
 
   return (
     <ul className={listClassName}>
