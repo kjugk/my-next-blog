@@ -41,11 +41,11 @@ const PostPage = async ({ params }: { params: Promise<Params> }) => {
   }
 
   return (
-    <Container>
+    <main className="container py-8">
       <Suspense fallback={<div>Loading post...</div>}>
         <PostContent post={post} />
       </Suspense>
-    </Container>
+    </main>
   );
 };
 

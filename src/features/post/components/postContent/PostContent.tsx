@@ -41,7 +41,7 @@ const PostContent: React.FC<{ post: Post & { tags: Tag[] } }> = ({ post }) => {
   }, [post.body]);
 
   return (
-    <article className="py-8 prose dark:prose-invert">
+    <article className="prose dark:prose-invert">
       <h1 className="mb-0">{post.title}</h1>
 
       <div className="flex justify-between items-center text-sm">

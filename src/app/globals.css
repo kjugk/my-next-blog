@@ -81,17 +81,6 @@
   --sidebar-ring: oklch(0.708 0 0);
 }
 
-@utility container {
-  margin-inline: auto;
-  padding-inline: 2rem;
-  @media (width >= --theme(--breakpoint-sm)) {
-    max-width: none;
-  }
-  @media (width >= 1400px) {
-    max-width: 1400px;
-  }
-}
-
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -106,4 +95,11 @@
     border-top: 1px solid;
     border-color: var(--primary);
   }
+}
+
+@utility container {
+  margin-inline: auto;
+  padding-inline: 2rem;
+  width: 100%;
+  max-width: theme(--breakpoint-md);
 }
