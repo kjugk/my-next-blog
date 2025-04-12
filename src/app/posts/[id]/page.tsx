@@ -1,4 +1,3 @@
-import { Container } from "@/components/layout/container/Container";
 import PostContent from "@/features/post/components/postContent/PostContent";
 import { getPost } from "@/features/post/serverFunctions/getPost";
 import { getOgpUrl } from "@/services/ogp";

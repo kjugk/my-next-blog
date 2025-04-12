@@ -39,7 +39,7 @@ export const uploadOgpImage = async (
   const command = new PutObjectCommand({
     Bucket: process.env.AWS_BUCKET_NAME || "",
     Key: key,
-    Body: imageBuffer, // eslint-disable-line @typescript-eslint/no-unsafe-assignment
+    Body: imageBuffer,
     ContentType: "image/png",
   });
 
