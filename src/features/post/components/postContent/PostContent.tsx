@@ -3,6 +3,7 @@
 import { getMarkedInstance } from "@/services/markdown";
 import { Post, Tag } from "@prisma/client";
 import React, { useEffect } from "react";
+import { PostTimeStamp } from "../timestamp/TimeStamp";
 
 const PostContent: React.FC<{ post: Post & { tags: Tag[] } }> = ({ post }) => {
   const marked = getMarkedInstance();
@@ -44,9 +45,7 @@ const PostContent: React.FC<{ post: Post & { tags: Tag[] } }> = ({ post }) => {
       <h1 className="mb-0 md:mb-0 font-bold">{post.title}</h1>
 
       <div className="flex justify-between items-center text-sm">
-        {post.publishedAt && (
-          <time>{new Date(post.publishedAt).toLocaleDateString()}</time>
-        )}
+        {post.publishedAt && <PostTimeStamp post={post} />}
         {post.tags.length > 0 && (
           <ul className="m-0 p-0">
             {post.tags.map((tag) => (
