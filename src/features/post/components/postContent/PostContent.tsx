@@ -44,15 +44,15 @@ const PostContent: React.FC<{ post: Post & { tags: Tag[] } }> = ({ post }) => {
     <article className="prose-sm md:prose-base dark:prose-invert">
       <h1 className="mb-0 md:mb-0 font-bold">{post.title}</h1>
 
-      <div className="flex justify-between items-center text-sm">
+      <div className="flex items-center text-sm gap-4 mt-2">
         {post.publishedAt && <PostTimeStamp post={post} />}
         {post.tags.length > 0 && (
-          <ul className="m-0 p-0">
+          <ul className="m-0! p-0! space-x-2">
             {post.tags.map((tag) => (
-              <li key={tag.id} className="inline-block mr-2">
+              <li key={tag.id} className="inline-block ">
                 <a
                   href={`/tags/${tag.name}`}
-                  className="text-primary underline-offset-2"
+                  className="text-primary hover:underline underline-offset-3"
                 >
                   #{tag.name}
                 </a>

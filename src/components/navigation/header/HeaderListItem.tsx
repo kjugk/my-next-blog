@@ -19,7 +19,7 @@ export const HeaderListItem = ({
         className={` underline-offset-4 ${
           pathName === href
             ? "text-primary underline"
-            : "group-hover:text-primary"
+            : "group-hover:text-primary group-hover:underline"
         }`}
       >
         {anchor}
