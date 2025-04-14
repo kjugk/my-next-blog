@@ -32,7 +32,9 @@ export const PostListItem = ({ post }: Props) => {
           <span>{getDate(post)}</span>
         </div>
 
-        <div className="line-clamp-3 mt-3">{post.body}</div>
+        <div className="line-clamp-3 mt-3 text-sm md:text-base">
+          {post.body}
+        </div>
       </Link>
     </li>
   );

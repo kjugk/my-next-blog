@@ -41,8 +41,8 @@ const PostContent: React.FC<{ post: Post & { tags: Tag[] } }> = ({ post }) => {
   }, [post.body]);
 
   return (
-    <article className="prose dark:prose-invert">
-      <h1 className="mb-0">{post.title}</h1>
+    <article className="prose-sm md:prose-base dark:prose-invert">
+      <h1 className="mb-0 md:mb-0 font-bold">{post.title}</h1>
 
       <div className="flex justify-between items-center text-sm">
         {post.publishedAt && (
