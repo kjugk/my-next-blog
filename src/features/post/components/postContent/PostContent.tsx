@@ -18,10 +18,7 @@ const PostContent: React.FC<{ post: Post & { tags: Tag[] } }> = ({ post }) => {
 
       // eslint-disable-next-line @typescript-eslint/no-misused-promises
       button.addEventListener("click", async () => {
-        const codeElement = pre.querySelector("code");
-        if (!codeElement) return;
-
-        const code = codeElement.textContent || "";
+        const code = pre.querySelector("code")?.textContent || "";
         await navigator.clipboard.writeText(code);
         button.textContent = "Copied!";
         setTimeout(() => (button.textContent = "Copy"), 2000);
