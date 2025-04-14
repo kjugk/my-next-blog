@@ -14,12 +14,14 @@ const PostContent: React.FC<{ post: Post & { tags: Tag[] } }> = ({ post }) => {
     preElements.forEach((pre) => {
       const button = document.createElement("button");
       button.textContent = "Copy";
-      button.className = `${buttonClassName} border rounded border-white px-2`;
-      button.style.marginLeft = "8px";
+      button.className = `${buttonClassName} border rounded border-white px-2 absolute top-2 right-2 text-white hover:cursor-pointer`;
 
       // eslint-disable-next-line @typescript-eslint/no-misused-promises
       button.addEventListener("click", async () => {
-        const code = pre.querySelector("code")?.textContent || "";
+        const codeElement = pre.querySelector("code");
+        if (!codeElement) return;
+
+        const code = codeElement.textContent || "";
         await navigator.clipboard.writeText(code);
         button.textContent = "Copied!";
         setTimeout(() => (button.textContent = "Copy"), 2000);

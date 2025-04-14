@@ -95,6 +95,14 @@
     border-top: 1px solid;
     border-color: var(--primary);
   }
+
+  pre:has(code) {
+    @apply p-0! relative;
+  }
+
+  pre > code {
+    @apply rounded-md p-6!;
+  }
 }
 
 @utility container {
