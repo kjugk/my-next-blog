@@ -22,7 +22,7 @@ export const PostTimeStamp = ({ post }: { post: Post }) => {
   return (
     <div className="h-8 inline-flex items-center gap-2 text-xs md:text-sm text-muted-foreground">
       <Calendar size={16} />
-      <span>{date}</span>
+      <time dateTime={date}>{date}</time>
     </div>
   );
 };
