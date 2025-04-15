@@ -6,7 +6,7 @@ import { HeaderListItem } from "./HeaderListItem";
 export const Header = () => {
   return (
     <header>
-      <div className="container py-5 flex items-center gap-12">
+      <div className="container pt-8 pb-6 flex items-center gap-12">
         <Link href="/">
           <h1 className={`${bokor.className} text-3xl`}>My Next Blog</h1>
         </Link>

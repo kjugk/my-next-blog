@@ -1,22 +1,9 @@
 import { Post } from "@prisma/client";
-import { format } from "date-fns";
-import { Calendar } from "lucide-react";
 import Link from "next/link";
+import { PostTimeStamp } from "../timestamp/TimeStamp";
 
 interface Props {
   post: Post;
-}
-
-function getDate(post: Post): string | null {
-  const formatString = "yyyy-MM-dd HH:mm";
-
-  if (post.published) {
-    if (post.publishedAt === null) return null;
-
-    return format(post.publishedAt, formatString);
-  }
-
-  return format(post.updatedAt, formatString);
 }
 
 export const PostListItem = ({ post }: Props) => {
@@ -27,12 +14,13 @@ export const PostListItem = ({ post }: Props) => {
           {post.title}
         </h2>
 
-        <div className="flex items-center gap-2 text-xs text-muted-foreground mt-1">
-          <Calendar size={16} />
-          <span>{getDate(post)}</span>
+        <div className="mt-1">
+          <PostTimeStamp post={post} />
         </div>
 
-        <div className="line-clamp-3 mt-3">{post.body}</div>
+        <div className="line-clamp-3 mt-3 text-sm md:text-base">
+          {post.body}
+        </div>
       </Link>
     </li>
   );
