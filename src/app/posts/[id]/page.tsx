@@ -26,7 +26,7 @@ export const generateMetadata = async ({
     title: post.title,
     openGraph: {
       title: post.title,
-      images: getOgpUrl(post.title),
+      images: getOgpUrl(post.title), // TODO: post.imageUrl,
     },
   };
 };

@@ -1,7 +1,8 @@
 import puppeteer from "puppeteer";
-import { PutObjectCommand } from "@aws-sdk/client-s3";
-import { createS3Client } from "../s3";
+import { getImageUrlFromS3, putImageToS3 } from "../s3";
+import { generateRandomString } from "@/lib/utils";
 
+// TODO: DB に保存できるようにしたら削除する
 export const getOgpUrl = (title: string) => {
   const key = `ogp/${encodeURIComponent(title.replace(/\s+/g, ""))}.png`;
   const domain = process.env.AWS_ENDPOINT;
@@ -31,19 +32,9 @@ export const generateOgpImage = async (title: string) => {
 
 export const uploadOgpImage = async (
   imageBuffer: Uint8Array<ArrayBufferLike>,
-  title: string,
-) => {
-  const key = `ogp/${title.replace(/\s+/g, "")}.png`;
-  const s3Client = createS3Client();
+): Promise<string> => {
+  const key = `ogp/${generateRandomString()}.png`;
+  await putImageToS3(key, imageBuffer);
 
-  const command = new PutObjectCommand({
-    Bucket: process.env.AWS_BUCKET_NAME || "",
-    Key: key,
-    Body: imageBuffer,
-    ContentType: "image/png",
-  });
-
-  await s3Client.send(command);
-
-  return key;
+  return getImageUrlFromS3(key);
 };
