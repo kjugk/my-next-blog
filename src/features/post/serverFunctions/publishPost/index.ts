@@ -11,7 +11,9 @@ export const publishPost = async (
   title: string,
 ): Promise<ServerFunctionResponse<Post>> => {
   const ogpImage = await generateOgpImage(title);
-  await uploadOgpImage(ogpImage, title);
+
+  // TODO: url を保存する
+  await uploadOgpImage(ogpImage);
 
   try {
     const post = await prisma.post.update({

@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { uploadFileToS3 } from "../../serverFunctions/uploadImage";
+import { uploadImage } from "../../serverFunctions/uploadImage";
 import { Image as ImageIcon } from "lucide-react";
 
 type Props = {
@@ -28,7 +28,7 @@ export const ImageUploadButton = ({ onUploadCompleted }: Props) => {
               return;
             }
 
-            const url = await uploadFileToS3(file);
+            const url = await uploadImage(file);
             onUploadCompleted({
               url,
               fileName: file.name,
