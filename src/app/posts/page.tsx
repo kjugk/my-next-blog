@@ -10,7 +10,9 @@ export default function Page() {
   return (
     <main className="container py-8">
       <h1 className="text-4xl font-bold">Posts</h1>
-      <p className="mt-2 text-muted-foreground">All articles I've posted.</p>
+      <p className="mt-2 text-muted-foreground">
+        All articles I&apos;ve posted.
+      </p>
       <Suspense fallback={<div>Loading...</div>}>
         <PostList className="mt-6" />
       </Suspense>
