@@ -1,3 +1,4 @@
+import Heading from "@/components/typography/heading/Heading";
 import { PostList } from "@/features/post/components/postList/PostList";
 import { Suspense } from "react";
 
@@ -15,7 +16,9 @@ export default async function Page({ params }: { params: Promise<Params> }) {
 
   return (
     <main className="container py-8">
-      <h1 className="text-4xl font-bold">Tag: {tagName}</h1>
+      <Heading as="h1" size="3xl">
+        Tag: {tagName}
+      </Heading>
       <p className="mt-2 text-muted-foreground">
         All articles with tag &quot;{tagName}&quot;
       </p>

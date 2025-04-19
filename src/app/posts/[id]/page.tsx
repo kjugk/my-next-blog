@@ -1,7 +1,6 @@
 import PostContent from "@/features/post/components/postContent/PostContent";
 import { getPost } from "@/features/post/serverFunctions/getPost";
 import { getOgpImage } from "@/services/ogp";
-import { Suspense } from "react";
 import { Metadata } from "next";
 
 type Params = {
@@ -18,7 +17,7 @@ export const generateMetadata = async ({
 
   if (!post) {
     return {
-      title: "Post not found",
+      title: "404: Post not found",
     };
   }
 
@@ -36,14 +35,16 @@ const PostPage = async ({ params }: { params: Promise<Params> }) => {
   const post = await getPost(id);
 
   if (!post) {
-    return <div>Post not found</div>;
+    return (
+      <main className="container py-8">
+        <div>404: Post not found</div>
+      </main>
+    );
   }
 
   return (
     <main className="container py-8">
-      <Suspense fallback={<div>Loading post...</div>}>
-        <PostContent post={post} />
-      </Suspense>
+      <PostContent post={post} />
     </main>
   );
 };

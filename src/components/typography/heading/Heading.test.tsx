@@ -1,9 +1,18 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
-import { describe, it, expect } from 'vitest';
-import { Heading } from './Heading';
+import React from "react";
+import { render, screen } from "@testing-library/react";
+import { describe, it, expect } from "vitest";
+import { Heading } from "./Heading";
 
-type HeadingSize = 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | '5xl' | '6xl';
+type HeadingSize =
+  | "sm"
+  | "md"
+  | "lg"
+  | "xl"
+  | "2xl"
+  | "3xl"
+  | "4xl"
+  | "5xl"
+  | "6xl";
 
 describe("Heading", () => {
   it("renders children correctly", () => {
@@ -84,37 +93,52 @@ describe("Heading", () => {
     expect(screen.getByTestId("heading-test")).toBeInTheDocument();
   });
 
-  it('applies responsive classes for all sizes', () => {
-    const sizes: ('sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | '5xl' | '6xl')[] = [
-      'sm', 'md', 'lg', 'xl', '2xl', '3xl', '4xl', '5xl', '6xl'
-    ];
-    
-    const responsiveClassMap: Record<HeadingSize, { mobile: string; desktop: string }> = {
-      sm: { mobile: 'text-xs', desktop: 'md:text-sm' },
-      md: { mobile: 'text-sm', desktop: 'md:text-base' },
-      lg: { mobile: 'text-base', desktop: 'md:text-lg' },
-      xl: { mobile: 'text-lg', desktop: 'md:text-xl' },
-      '2xl': { mobile: 'text-xl', desktop: 'md:text-2xl' },
-      '3xl': { mobile: 'text-2xl', desktop: 'md:text-3xl' },
-      '4xl': { mobile: 'text-3xl', desktop: 'md:text-4xl' },
-      '5xl': { mobile: 'text-4xl', desktop: 'md:text-5xl' },
-      '6xl': { mobile: 'text-5xl', desktop: 'md:text-6xl' },
+  it("applies responsive classes for all sizes", () => {
+    const sizes: (
+      | "sm"
+      | "md"
+      | "lg"
+      | "xl"
+      | "2xl"
+      | "3xl"
+      | "4xl"
+      | "5xl"
+      | "6xl"
+    )[] = ["sm", "md", "lg", "xl", "2xl", "3xl", "4xl", "5xl", "6xl"];
+
+    const responsiveClassMap: Record<
+      HeadingSize,
+      { mobile: string; desktop: string }
+    > = {
+      sm: { mobile: "text-xs", desktop: "md:text-sm" },
+      md: { mobile: "text-sm", desktop: "md:text-base" },
+      lg: { mobile: "text-base", desktop: "md:text-lg" },
+      xl: { mobile: "text-lg", desktop: "md:text-xl" },
+      "2xl": { mobile: "text-xl", desktop: "md:text-2xl" },
+      "3xl": { mobile: "text-2xl", desktop: "md:text-3xl" },
+      "4xl": { mobile: "text-3xl", desktop: "md:text-4xl" },
+      "5xl": { mobile: "text-4xl", desktop: "md:text-5xl" },
+      "6xl": { mobile: "text-5xl", desktop: "md:text-6xl" },
     };
 
-    sizes.forEach(size => {
-      const { container, unmount } = render(<Heading size={size}>Responsive {size}</Heading>);
+    sizes.forEach((size) => {
+      const { unmount } = render(
+        <Heading size={size}>Responsive {size}</Heading>,
+      );
       const heading = screen.getByText(`Responsive ${size}`);
-      
+
       // Check mobile class is applied
-      expect(heading.classList.contains(responsiveClassMap[size].mobile)).toBe(true);
-      
+      expect(heading.classList.contains(responsiveClassMap[size].mobile)).toBe(
+        true,
+      );
+
       // Check desktop (md:) class is applied
       const classListArray = Array.from(heading.classList);
-      const hasDesktopClass = classListArray.some(className => 
-        className.includes(responsiveClassMap[size].desktop.replace('md:', ''))
+      const hasDesktopClass = classListArray.some((className) =>
+        className.includes(responsiveClassMap[size].desktop.replace("md:", "")),
       );
       expect(hasDesktopClass).toBe(true);
-      
+
       unmount();
     });
   });
