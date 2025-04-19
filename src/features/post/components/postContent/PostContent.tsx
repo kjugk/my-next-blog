@@ -4,6 +4,7 @@ import { getMarkedInstance } from "@/services/markdown";
 import { Post, Tag } from "@prisma/client";
 import React, { useEffect } from "react";
 import { PostTimeStamp } from "../timestamp/TimeStamp";
+import Heading from "@/components/typography/heading/Heading";
 
 const PostContent: React.FC<{ post: Post & { tags: Tag[] } }> = ({ post }) => {
   const marked = getMarkedInstance();
@@ -41,8 +42,10 @@ const PostContent: React.FC<{ post: Post & { tags: Tag[] } }> = ({ post }) => {
   }, [post.body]);
 
   return (
-    <article className="prose-sm md:prose-base dark:prose-invert">
-      <h1 className="mb-0 md:mb-0 font-bold">{post.title}</h1>
+    <article>
+      <Heading as="h1" size="3xl">
+        {post.title}
+      </Heading>
 
       <div className="flex items-center text-sm gap-4 mt-2">
         {post.publishedAt && <PostTimeStamp post={post} />}
@@ -62,7 +65,9 @@ const PostContent: React.FC<{ post: Post & { tags: Tag[] } }> = ({ post }) => {
         )}
       </div>
 
-      <div dangerouslySetInnerHTML={{ __html: marked.parse(post.body) }} />
+      <div className="prose-sm md:prose-base dark:prose-invert">
+        <div dangerouslySetInnerHTML={{ __html: marked.parse(post.body) }} />
+      </div>
     </article>
   );
 };

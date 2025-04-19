@@ -1,3 +1,4 @@
+import Heading from "@/components/typography/heading/Heading";
 import { TagList } from "@/features/tag/components/tagList/TagList";
 import { Suspense } from "react";
 
@@ -9,7 +10,9 @@ export const metadata = {
 export default function Page() {
   return (
     <main className="container py-8">
-      <h1 className="text-4xl font-bold">Tags</h1>
+      <Heading as="h1" size="3xl">
+        Tags
+      </Heading>
       <p className="mt-2 text-muted-foreground">All tags used in the blog.</p>
 
       <Suspense fallback={<div>Loading...</div>}>

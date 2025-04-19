@@ -13,13 +13,13 @@ export const HeaderListItem = ({
   const pathName = usePathname();
 
   return (
-    <li className="group">
+    <li>
       <Link
         href={href}
         className={` underline-offset-4 ${
           pathName === href
             ? "text-primary underline"
-            : "group-hover:text-primary group-hover:underline"
+            : "hover:text-primary hover:underline"
         }`}
       >
         {anchor}

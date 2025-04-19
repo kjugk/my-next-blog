@@ -7,10 +7,12 @@ export const TagList = async () => {
   return (
     <ul className="flex flex-wrap gap-2 mt-6">
       {tags.map((tag) => (
-        <Link href={`tags/${tag.name}`} key={tag.id}>
-          <span className="border border-primary inline-block px-2 hover:underline">
-            #{tag.name}
-          </span>
+        <Link
+          href={`tags/${tag.name}`}
+          key={tag.id}
+          className="border border-primary text-primary inline-block px-2 hover:underline underline-offset-2"
+        >
+          #{tag.name}
         </Link>
       ))}
     </ul>
