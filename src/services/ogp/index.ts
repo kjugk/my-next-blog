@@ -2,17 +2,17 @@ import puppeteer from "puppeteer";
 import { getImageUrlFromS3, putImageToS3 } from "../s3";
 import { generateRandomString } from "@/lib/utils";
 
-// TODO: DB に保存できるようにしたら削除する
-export const getOgpUrl = (title: string) => {
-  const key = `ogp/${encodeURIComponent(title.replace(/\s+/g, ""))}.png`;
-  const domain = process.env.AWS_ENDPOINT;
-  return `${domain}/${process.env.AWS_BUCKET_NAME}/${key}`;
+const OGP_BUCKET_NAME = "ogp";
+
+export const getOgpImage = (fileName: string | null) => {
+  if (!fileName) return undefined;
+  return getImageUrlFromS3(`${OGP_BUCKET_NAME}/${fileName}`);
 };
 
 export const generateOgpImage = async (title: string) => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
-  const bgUrl = getOgpUrl("ogp-bg");
+  const bgUrl = getOgpImage("ogp-bg");
 
   await page.setViewport({ width: 1200, height: 630 });
 
@@ -33,8 +33,9 @@ export const generateOgpImage = async (title: string) => {
 export const uploadOgpImage = async (
   imageBuffer: Uint8Array<ArrayBufferLike>,
 ): Promise<string> => {
-  const key = `ogp/${generateRandomString()}.png`;
+  const fileName = generateRandomString();
+  const key = `${OGP_BUCKET_NAME}/${fileName}`;
   await putImageToS3(key, imageBuffer);
 
-  return getImageUrlFromS3(key);
+  return fileName;
 };
