@@ -1,6 +1,6 @@
 import PostContent from "@/features/post/components/postContent/PostContent";
 import { getPost } from "@/features/post/serverFunctions/getPost";
-import { getOgpUrl } from "@/services/ogp";
+import { getOgpImage } from "@/services/ogp";
 import { Suspense } from "react";
 import { Metadata } from "next";
 
@@ -26,7 +26,7 @@ export const generateMetadata = async ({
     title: post.title,
     openGraph: {
       title: post.title,
-      images: getOgpUrl(post.title), // TODO: post.imageUrl,
+      images: getOgpImage(post.ogImageFilename),
     },
   };
 };

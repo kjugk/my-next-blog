@@ -11,9 +11,7 @@ export const publishPost = async (
   title: string,
 ): Promise<ServerFunctionResponse<Post>> => {
   const ogpImage = await generateOgpImage(title);
-
-  // TODO: url を保存する
-  await uploadOgpImage(ogpImage);
+  const fileName = await uploadOgpImage(ogpImage);
 
   try {
     const post = await prisma.post.update({
@@ -23,10 +21,11 @@ export const publishPost = async (
       data: {
         published: true,
         publishedAt: new Date(),
+        ogImageFilename: fileName,
       },
     });
 
-    revalidateTag("posts");
+    revalidateTag("posts"); // published posts のキャッシュを無効化
 
     return {
       status: "success",
