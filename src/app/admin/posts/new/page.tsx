@@ -2,7 +2,7 @@ import { CreatePostContainer } from "@/features/post/components/createPostContai
 
 export default function Page() {
   return (
-    <div>
+    <div className="px-8">
       <CreatePostContainer />
     </div>
   );
