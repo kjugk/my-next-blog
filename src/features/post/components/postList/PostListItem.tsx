@@ -19,9 +19,7 @@ export const PostListItem = ({ post }: Props) => {
           <PostTimeStamp post={post} />
         </div>
 
-        <div className="line-clamp-3 mt-3 text-sm md:text-base">
-          {post.body}
-        </div>
+        <div className="line-clamp-3 mt-3 text-sm">{post.body}</div>
       </Link>
     </li>
   );

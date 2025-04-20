@@ -48,7 +48,7 @@ export const PostEditor = ({ post, mode, onSubmit }: Props) => {
       <form onSubmit={form.handleSubmit(onSubmit)} className="h-full">
         <div className="py-4 flex flex-col gap-4 h-full">
           <div className="flex justify-end gap-2">
-            <Button type="submit">下書き保存</Button>
+            <Button type="submit">{post ? "更新" : "下書き保存"}</Button>
             {mode === "edit" && post && (
               <PublishConfirmDialog id={post.id} title={post.title} />
             )}

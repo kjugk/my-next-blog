@@ -7,14 +7,12 @@ import { useToast } from "@/hooks/use-toast";
 import { useTransition } from "react";
 import { PostEditor } from "../editor/PostEditor";
 import { Post, Tag } from "@prisma/client";
-import { useRouter } from "next/navigation";
 
 export const EditPostContainer = ({
   post,
 }: {
   post: Post & { tags: Tag[] };
 }) => {
-  const router = useRouter();
   const [, startTransition] = useTransition();
   const { toast } = useToast();
 
@@ -34,12 +32,12 @@ export const EditPostContainer = ({
         title: res.message,
         variant: res.status === "error" ? "destructive" : "default",
       });
-
-      if (res.status === "success") {
-        router.push("/admin/drafts");
-      }
     });
   };
 
-  return <PostEditor post={post} onSubmit={handleSubmit} mode="edit" />;
+  return (
+    <div className="px-8">
+      <PostEditor post={post} onSubmit={handleSubmit} mode="edit" />
+    </div>
+  );
 };
