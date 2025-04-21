@@ -1,10 +1,14 @@
-// filepath: /Users/uegakikouji/project/my-next-blog/src/services/markdown/extensions/link.ts
 import { Parser, Token, TokensList } from "marked";
 
 /**
  * URLをクリーンアップして安全な形式にエンコードする
  */
 export function cleanUrl(href: string) {
+  // 文字列以外が渡された場合はnullを返す
+  if (typeof href !== "string") {
+    return null;
+  }
+
   try {
     href = encodeURI(href).replace(/%25/g, "%");
   } catch {

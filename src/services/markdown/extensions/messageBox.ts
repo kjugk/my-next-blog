@@ -16,7 +16,7 @@ interface BlockTokenizerThis {
  * カスタムメッセージボックス拡張
  * :::message
  * メッセージ内容
- * ::: 
+ * :::
  * という形式のマークダウンを赤背景のメッセージボックスにレンダリングする
  */
 export const messageBoxExtension: MarkedExtension = {
