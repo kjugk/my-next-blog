@@ -30,6 +30,6 @@ export const putImageToS3 = async (
 };
 
 export const getImageUrlFromS3 = (key: string): string => {
-  const domain = process.env.AWS_ENDPOINT;
+  const domain = process.env.AWS_BUCKET_DOMAIN;
   return `${domain}/${process.env.AWS_BUCKET_NAME}/${key}`;
 };
