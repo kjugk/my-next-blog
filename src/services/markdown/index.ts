@@ -1,11 +1,4 @@
-import {
-  Marked,
-  MarkedExtension,
-  Lexer,
-  Parser,
-  Token,
-  TokensList,
-} from "marked";
+import { Marked } from "marked";
 import { markedHighlight } from "marked-highlight";
 
 import hljs from "highlight.js/lib/core";
@@ -15,96 +8,20 @@ import typescript from "highlight.js/lib/languages/typescript";
 
 import "highlight.js/styles/panda-syntax-dark.css";
 
+import { customLinkRenderer } from "./extensions/link";
+import { messageBoxExtension } from "./extensions/messageBox";
+
+// ハイライト表示用の言語を登録
 hljs.registerLanguage("plaintext", plaintext);
 hljs.registerLanguage("javascript", javascript);
 hljs.registerLanguage("typescript", typescript);
 
 let instance: Marked | undefined = undefined;
 
-function cleanUrl(href: string) {
-  try {
-    href = encodeURI(href).replace(/%25/g, "%");
-  } catch {
-    return null;
-  }
-  return href;
-}
-
-// Link トークンの型定義
-interface LinkToken {
-  href: string;
-  title?: string | null;
-  text?: string;
-  tokens?: Token[] | TokensList;
-}
-
-interface MarkedRenderer {
-  parser: Parser;
-  link(token: LinkToken): string;
-}
-
-interface MessageBoxToken {
-  type: string;
-  raw: string;
-  text: string;
-  tokens: Token[] | TokensList;
-}
-
-interface BlockTokenizerThis {
-  lexer: Lexer;
-}
-
-const renderer: Partial<MarkedRenderer> = {
-  link(this: { parser: Parser }, { href, title, tokens }: LinkToken): string {
-    // null または undefined の場合は空文字列を返す
-    const text = tokens ? this.parser.parseInline(tokens) : "";
-    const cleanHref = cleanUrl(href);
-    if (cleanHref === null) {
-      return text;
-    }
-    href = cleanHref;
-    let out = '<a class="link link-primary" href="' + href + '"';
-    if (title) {
-      out += ' title="' + title + '"';
-    }
-    out += ">" + text + "</a>";
-    return out;
-  },
-};
-
-// カスタムメッセージボックス拡張
-const messageBoxExtension: MarkedExtension = {
-  extensions: [
-    {
-      name: "message-box",
-      level: "block",
-      // 未使用の引数を削除
-      tokenizer(this: BlockTokenizerThis, src: string) {
-        const rule = /^:::message\s*\n([\s\S]*?)\n:::\s*(?:\n|$)/;
-        const match = rule.exec(src);
-        if (match) {
-          const token: MessageBoxToken = {
-            type: "message-box",
-            raw: match[0],
-            text: match[1].trim(),
-            tokens: this.lexer.inlineTokens(match[1].trim(), []),
-          };
-          return token;
-        }
-        return undefined;
-      },
-      renderer(this: { parser: Parser }, token: Token) {
-        // token が MessageBoxToken として扱えるかチェック
-        const messageToken = token as MessageBoxToken;
-        if (!messageToken || !messageToken.tokens) {
-          return "";
-        }
-        return `<div class="bg-red-200 rounded p-2">${this.parser.parseInline(messageToken.tokens)}</div>\n`;
-      },
-    },
-  ],
-};
-
+/**
+ * Marked.jsのインスタンスを取得する
+ * シングルトンパターンでインスタンスを管理し、一度作成したインスタンスを再利用する
+ */
 export function getMarkedInstance() {
   if (!instance) {
     const _instance = new Marked(
@@ -118,7 +35,10 @@ export function getMarkedInstance() {
       }),
     );
 
-    _instance.use({ breaks: true, renderer });
+    // カスタムリンクレンダラーと改行の有効化を設定
+    _instance.use({ breaks: true, renderer: customLinkRenderer });
+
+    // カスタムメッセージボックス拡張を設定
     _instance.use(messageBoxExtension);
 
     instance = _instance;
