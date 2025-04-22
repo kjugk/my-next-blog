@@ -1,4 +1,4 @@
-import { Marked, Tokens } from "marked";
+import { Marked } from "marked";
 import { markedHighlight } from "marked-highlight";
 
 import hljs from "highlight.js/lib/core";
@@ -8,39 +8,20 @@ import typescript from "highlight.js/lib/languages/typescript";
 
 import "highlight.js/styles/panda-syntax-dark.css";
 
+import { customLinkRenderer } from "./extensions/link";
+import { messageBoxExtension } from "./extensions/messageBox";
+
+// ハイライト表示用の言語を登録
 hljs.registerLanguage("plaintext", plaintext);
 hljs.registerLanguage("javascript", javascript);
 hljs.registerLanguage("typescript", typescript);
 
 let instance: Marked | undefined = undefined;
 
-function cleanUrl(href: string) {
-  try {
-    href = encodeURI(href).replace(/%25/g, "%");
-  } catch {
-    return null;
-  }
-  return href;
-}
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const renderer: any = {
-  link({ href, title, tokens }: Tokens.Link): string {
-    const text = this.parser.parseInline(tokens); // eslint-disable-line
-    const cleanHref = cleanUrl(href);
-    if (cleanHref === null) {
-      return text; // eslint-disable-line
-    }
-    href = cleanHref;
-    let out = '<a class="link link-primary" href="' + href + '"';
-    if (title) {
-      out += ' title="' + title + '"';
-    }
-    out += ">" + text + "</a>";
-    return out;
-  },
-};
-
+/**
+ * Marked.jsのインスタンスを取得する
+ * シングルトンパターンでインスタンスを管理し、一度作成したインスタンスを再利用する
+ */
 export function getMarkedInstance() {
   if (!instance) {
     const _instance = new Marked(
@@ -54,7 +35,11 @@ export function getMarkedInstance() {
       }),
     );
 
-    _instance.use({ breaks: true, renderer }); // eslint-disable-line
+    // カスタムリンクレンダラーと改行の有効化を設定
+    _instance.use({ breaks: true, renderer: customLinkRenderer });
+
+    // カスタムメッセージボックス拡張を設定
+    _instance.use(messageBoxExtension);
 
     instance = _instance;
   }
