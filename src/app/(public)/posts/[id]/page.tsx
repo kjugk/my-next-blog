@@ -3,6 +3,8 @@ import PostContent from "@/features/post/components/postContent/PostContent";
 import { getPost } from "@/features/post/serverFunctions/getPost";
 import { getOgpImage } from "@/services/ogp";
 import { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { NextResponse } from "next/server";
 
 type Params = {
   id: string;
@@ -36,11 +38,7 @@ const PostPage = async ({ params }: { params: Promise<Params> }) => {
   const post = await getPost(id);
 
   if (!post) {
-    return (
-      <Container as="main" className="p-8">
-        <div>404: Post not found</div>
-      </Container>
-    );
+    notFound();
   }
 
   return (

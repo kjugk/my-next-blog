@@ -2,11 +2,12 @@ import { bokor } from "@/app/fonts";
 import Link from "next/link";
 import React from "react";
 import { HeaderListItem } from "../header/HeaderListItem";
+import { Container } from "@/components/layout/container/Container";
 
 export const AdminHeader = () => {
   return (
-    <header>
-      <div className="container pt-8 pb-6 flex items-center gap-12">
+    <Container as="header" size="xl" className="px-8">
+      <div className="pt-8 pb-6 flex items-center gap-12">
         <Link href="/admin/posts/draft">
           <h1 className={`${bokor.className} text-3xl`}>My Next Blog</h1>
         </Link>
@@ -18,9 +19,7 @@ export const AdminHeader = () => {
         </nav>
       </div>
 
-      <div className="container">
-        <hr />
-      </div>
-    </header>
+      <hr />
+    </Container>
   );
 };
