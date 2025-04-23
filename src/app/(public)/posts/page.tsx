@@ -1,3 +1,4 @@
+import { Container } from "@/components/layout/container/Container";
 import Heading from "@/components/typography/heading/Heading";
 import { PostList } from "@/features/post/components/postList/PostList";
 import { Suspense } from "react";
@@ -9,7 +10,7 @@ export const metadata = {
 
 export default function Page() {
   return (
-    <main className="container py-8">
+    <Container as="main" className="p-8">
       <Heading as="h1" size="3xl">
         Posts
       </Heading>
@@ -19,6 +20,6 @@ export default function Page() {
       <Suspense fallback={<div>Loading...</div>}>
         <PostList className="mt-6" />
       </Suspense>
-    </main>
+    </Container>
   );
 }
