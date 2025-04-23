@@ -4,7 +4,6 @@ import { getPost } from "@/features/post/serverFunctions/getPost";
 import { getOgpImage } from "@/services/ogp";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { NextResponse } from "next/server";
 
 type Params = {
   id: string;
