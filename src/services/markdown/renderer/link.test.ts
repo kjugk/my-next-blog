@@ -1,7 +1,6 @@
-// filepath: /Users/uegakikouji/project/my-next-blog/src/services/markdown/extensions/__tests__/link.test.ts
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { cleanUrl, customLinkRenderer, LinkToken } from "../link";
-import { Parser, Token, Renderer, TextRenderer } from "marked";
+import { cleanUrl, customLinkRenderer } from "./link";
+import { Parser, Token, Renderer, TextRenderer, Tokens } from "marked";
 
 describe("cleanUrl", () => {
   it("エンコードされたURLを正しく処理する", () => {
@@ -76,7 +75,7 @@ describe("customLinkRenderer", () => {
   });
 
   it("リンクを正しくレンダリングする", () => {
-    const token: LinkToken = {
+    const token: Partial<Tokens.Link> = {
       href: "https://example.com",
       title: "Example Title",
       tokens: [
@@ -95,7 +94,7 @@ describe("customLinkRenderer", () => {
   });
 
   it("titleがない場合も正しくレンダリングする", () => {
-    const token: LinkToken = {
+    const token: Partial<Tokens.Link> = {
       href: "https://example.com",
       tokens: [
         { type: "text", raw: "token content", text: "token content" } as Token,
@@ -111,7 +110,7 @@ describe("customLinkRenderer", () => {
   });
 
   it("URLが無効な場合はテキストのみを返す", () => {
-    const token: LinkToken = {
+    const token: Partial<Tokens.Link> = {
       // @ts-expect-error テストのためにオブジェクトを渡す
       href: {},
       tokens: [
@@ -127,7 +126,7 @@ describe("customLinkRenderer", () => {
   });
 
   it("tokensがない場合は空文字列をパースする", () => {
-    const token: LinkToken = {
+    const token: Partial<Tokens.Link> = {
       href: "https://example.com",
       // tokensを明示的に省略
     };

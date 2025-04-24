@@ -8,8 +8,9 @@ import typescript from "highlight.js/lib/languages/typescript";
 
 import "highlight.js/styles/panda-syntax-dark.css";
 
-import { customLinkRenderer } from "./extensions/link";
 import { messageBoxExtension } from "./extensions/messageBox";
+import { customLinkRenderer } from "./renderer/link";
+import { customCodeRenderer } from "./renderer/code";
 
 // ハイライト表示用の言語を登録
 hljs.registerLanguage("plaintext", plaintext);
@@ -37,6 +38,7 @@ export function getMarkedInstance() {
 
     // カスタムリンクレンダラーと改行の有効化を設定
     _instance.use({ breaks: true, renderer: customLinkRenderer });
+    _instance.use({ breaks: true, renderer: customCodeRenderer });
 
     // カスタムメッセージボックス拡張を設定
     _instance.use(messageBoxExtension);

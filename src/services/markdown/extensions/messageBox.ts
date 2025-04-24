@@ -1,4 +1,3 @@
-// filepath: /Users/uegakikouji/project/my-next-blog/src/services/markdown/extensions/messageBox.ts
 import { Lexer, Parser, Token, TokensList, MarkedExtension } from "marked";
 
 interface MessageBoxToken {

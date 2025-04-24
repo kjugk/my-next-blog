@@ -1,8 +1,6 @@
 /* eslint-disable */
-// filepath: /Users/uegakikouji/project/my-next-blog/src/services/markdown/extensions/__tests__/messageBox.test.ts
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { messageBoxExtension } from "../messageBox";
-import { TokenizerAndRendererExtension } from "marked";
+import { messageBoxExtension } from "./messageBox";
 
 describe("messageBoxExtension", () => {
   it("エクステンションの構造が正しい", () => {
