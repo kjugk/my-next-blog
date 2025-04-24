@@ -1,4 +1,4 @@
-import { Parser, Token, TokensList } from "marked";
+import { Parser, Token, Tokens, TokensList } from "marked";
 
 /**
  * URLをクリーンアップして安全な形式にエンコードする
@@ -54,5 +54,11 @@ export const customLinkRenderer = {
     }
     out += ">" + text + "</a>";
     return out;
+  },
+  code({ text, lang }: Tokens.Code): string {
+    if (text.match(/^sequenceDiagram/) || text.match(/^graph/)) {
+      return '<pre class="mermaid">' + text + "</pre>";
+    }
+    return `<pre><code class="hljs language-${lang}">` + text + "</code></pre>";
   },
 };
