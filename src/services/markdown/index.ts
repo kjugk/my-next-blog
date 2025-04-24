@@ -1,20 +1,7 @@
 import { Marked } from "marked";
-import { markedHighlight } from "marked-highlight";
-
-import hljs from "highlight.js/lib/core";
-import plaintext from "highlight.js/lib/languages/plaintext";
-import javascript from "highlight.js/lib/languages/javascript";
-import typescript from "highlight.js/lib/languages/typescript";
-
-import "highlight.js/styles/panda-syntax-dark.css";
-
-import { customLinkRenderer } from "./extensions/link";
+import { customCodeExtension } from "./extensions/code";
 import { messageBoxExtension } from "./extensions/messageBox";
-
-// ハイライト表示用の言語を登録
-hljs.registerLanguage("plaintext", plaintext);
-hljs.registerLanguage("javascript", javascript);
-hljs.registerLanguage("typescript", typescript);
+import { customLinkExtension } from "./extensions/link";
 
 let instance: Marked | undefined = undefined;
 
@@ -24,22 +11,12 @@ let instance: Marked | undefined = undefined;
  */
 export function getMarkedInstance() {
   if (!instance) {
-    const _instance = new Marked(
-      markedHighlight({
-        emptyLangClass: "hljs",
-        langPrefix: "hljs language-",
-        highlight(code, lang) {
-          const language = hljs.getLanguage(lang) ? lang : "plaintext";
-          return hljs.highlight(code, { language }).value;
-        },
-      }),
-    );
-
-    // カスタムリンクレンダラーと改行の有効化を設定
-    _instance.use({ breaks: true, renderer: customLinkRenderer });
-
-    // カスタムメッセージボックス拡張を設定
-    _instance.use(messageBoxExtension);
+    const _instance = new Marked();
+    _instance.use(customLinkExtension);
+    _instance.use(customCodeExtension);
+    _instance.use({
+      extensions: [messageBoxExtension],
+    });
 
     instance = _instance;
   }
