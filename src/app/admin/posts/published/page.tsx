@@ -5,7 +5,7 @@ import { Suspense } from "react";
 
 export default function Page() {
   return (
-    <Container className="p-8">
+    <Container as="main" className="p-8">
       <Heading size="3xl">公開済投稿一覧</Heading>
       <Suspense fallback={<div>Loading...</div>}>
         <AdminPostList className="mt-6" published />

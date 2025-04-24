@@ -16,7 +16,7 @@ export default async function Page({ params }: { params: Promise<Params> }) {
   const { tagName } = await params;
 
   return (
-    <Container className="p-8">
+    <Container as="main" className="p-8">
       <Heading as="h1" size="3xl">
         Tag: {tagName}
       </Heading>
