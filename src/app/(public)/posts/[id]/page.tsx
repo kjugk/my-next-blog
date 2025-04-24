@@ -1,7 +1,9 @@
+import { Container } from "@/components/layout/container/Container";
 import PostContent from "@/features/post/components/postContent/PostContent";
 import { getPost } from "@/features/post/serverFunctions/getPost";
 import { getOgpImage } from "@/services/ogp";
 import { Metadata } from "next";
+import { notFound } from "next/navigation";
 
 type Params = {
   id: string;
@@ -35,17 +37,13 @@ const PostPage = async ({ params }: { params: Promise<Params> }) => {
   const post = await getPost(id);
 
   if (!post) {
-    return (
-      <main className="container py-8">
-        <div>404: Post not found</div>
-      </main>
-    );
+    notFound();
   }
 
   return (
-    <main className="container py-8">
+    <Container as="main" className="p-8">
       <PostContent post={post} />
-    </main>
+    </Container>
   );
 };
 

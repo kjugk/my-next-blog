@@ -1,11 +1,24 @@
 import { cn } from "@/lib/utils";
-import { PropsWithChildren } from "react";
+import { JSX, PropsWithChildren } from "react";
+
+const sizeClasses = {
+  sm: "max-w-[640px]",
+  md: "max-w-[768px]",
+  lg: "max-w-[1024px]",
+  xl: "max-w-[1280px]",
+};
 
 export const Container = ({
+  as: Component = "div",
   className,
+  size = "md",
   children,
-}: PropsWithChildren<{ className?: string }>) => {
-  const mergedCn = cn("max-w-[768px] mx-auto", className);
+}: PropsWithChildren<{
+  as?: keyof JSX.IntrinsicElements;
+  className?: string;
+  size?: keyof typeof sizeClasses;
+}>) => {
+  const mergedCn = cn(sizeClasses[size], "w-full mx-auto", className);
 
-  return <div className={mergedCn}>{children}</div>;
+  return <Component className={mergedCn}>{children}</Component>;
 };

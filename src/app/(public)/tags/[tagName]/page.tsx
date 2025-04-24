@@ -1,3 +1,4 @@
+import { Container } from "@/components/layout/container/Container";
 import Heading from "@/components/typography/heading/Heading";
 import { PostList } from "@/features/post/components/postList/PostList";
 import { Suspense } from "react";
@@ -15,7 +16,7 @@ export default async function Page({ params }: { params: Promise<Params> }) {
   const { tagName } = await params;
 
   return (
-    <main className="container py-8">
+    <Container as="main" className="p-8">
       <Heading as="h1" size="3xl">
         Tag: {tagName}
       </Heading>
@@ -26,6 +27,6 @@ export default async function Page({ params }: { params: Promise<Params> }) {
       <Suspense fallback={<div>Loading...</div>}>
         <PostList className="mt-6" tagName={tagName} />
       </Suspense>
-    </main>
+    </Container>
   );
 }
