@@ -1,7 +1,7 @@
 import { Marked } from "marked";
-import { customCodeExtension } from "./renderer/code";
+import { customCodeExtension } from "./extensions/code";
 import { messageBoxExtension } from "./extensions/messageBox";
-import { customLinkExtension } from "./renderer/link";
+import { customLinkExtension } from "./extensions/link";
 
 let instance: Marked | undefined = undefined;
 
