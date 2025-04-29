@@ -5,7 +5,6 @@ import {
   Dialog,
   DialogClose,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -14,14 +13,15 @@ import {
 import { useState, useTransition } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
-import { publishPost } from "../../serverFunctions/publishPost";
+import { changePostPublication } from "../../serverFunctions/publishPost";
 
 type Props = {
   id: number;
   title: string;
+  published: boolean;
 };
 
-export const PublishConfirmDialog = ({ id, title }: Props) => {
+export const PublishConfirmDialog = ({ id, title, published }: Props) => {
   const router = useRouter();
   const [pending, startTransition] = useTransition();
   const [open, setOpen] = useState(false);
@@ -29,7 +29,11 @@ export const PublishConfirmDialog = ({ id, title }: Props) => {
 
   const handlePublish = () => {
     startTransition(async () => {
-      const { message, status } = await publishPost(id, title);
+      const { message, status } = await changePostPublication(
+        id,
+        title,
+        !published,
+      );
 
       toast({
         title: message,
@@ -46,14 +50,15 @@ export const PublishConfirmDialog = ({ id, title }: Props) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="default" type="button">
-          公開
+        <Button variant={published ? "destructive" : "default"} type="button">
+          {published ? "公開取消" : "公開"}
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[425px]" aria-describedby={undefined}>
         <DialogHeader>
-          <DialogTitle>投稿を公開</DialogTitle>
-          <DialogDescription>公開してよいですか?</DialogDescription>
+          <DialogTitle>
+            {published ? "公開を取り消し" : "投稿を公開"}
+          </DialogTitle>
         </DialogHeader>
         <DialogFooter>
           <DialogClose asChild>
@@ -61,8 +66,12 @@ export const PublishConfirmDialog = ({ id, title }: Props) => {
               キャンセル
             </Button>
           </DialogClose>
-          <Button variant="default" onClick={handlePublish} disabled={pending}>
-            公開
+          <Button
+            variant={published ? "destructive" : "default"}
+            onClick={handlePublish}
+            disabled={pending}
+          >
+            OK
           </Button>
         </DialogFooter>
       </DialogContent>
