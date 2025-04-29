@@ -50,7 +50,11 @@ export const PostEditor = ({ post, mode, onSubmit }: Props) => {
           <div className="flex justify-end gap-2">
             <Button type="submit">{post ? "更新" : "下書き保存"}</Button>
             {mode === "edit" && post && (
-              <PublishConfirmDialog id={post.id} title={post.title} />
+              <PublishConfirmDialog
+                id={post.id}
+                title={post.title}
+                published={post.published}
+              />
             )}
           </div>
 

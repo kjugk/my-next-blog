@@ -6,22 +6,26 @@ import { ServerFunctionResponse } from "@/types";
 import { Post } from "@prisma/client";
 import { revalidateTag } from "next/cache";
 
-export const publishPost = async (
+const getOgpImageFileName = async (title: string): Promise<string> => {
+  const ogpImage = await generateOgpImage(title);
+  return uploadOgpImage(ogpImage);
+};
+
+export const changePostPublication = async (
   id: number,
   title: string,
+  publish: boolean,
 ): Promise<ServerFunctionResponse<Post>> => {
-  const ogpImage = await generateOgpImage(title);
-  const fileName = await uploadOgpImage(ogpImage);
-
   try {
     const post = await prisma.post.update({
       where: {
         id: Number(id),
       },
       data: {
-        published: true,
-        publishedAt: new Date(),
-        ogImageFilename: fileName,
+        published: publish,
+        publishedAt: publish ? new Date() : null,
+        // TODO: title が変更されている場合のみ OGP画像を生成する
+        ...(publish && { ogImageFilename: await getOgpImageFileName(title) }),
       },
     });
 
@@ -29,7 +33,7 @@ export const publishPost = async (
 
     return {
       status: "success",
-      message: "Postを公開しました",
+      message: publish ? "Postを公開しました" : "Postを非公開にしました",
       data: post,
     };
   } catch (e) {
