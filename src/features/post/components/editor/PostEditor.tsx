@@ -45,8 +45,8 @@ export const PostEditor = ({ post, mode, onSubmit }: Props) => {
   return (
     <Form {...form}>
       {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
-      <form onSubmit={form.handleSubmit(onSubmit)} className="h-full">
-        <div className="py-4 flex flex-col gap-4 h-full">
+      <form onSubmit={form.handleSubmit(onSubmit)}>
+        <div className="py-4 space-y-4">
           <div className="flex justify-end gap-2">
             <Button type="submit">{post ? "更新" : "下書き保存"}</Button>
             {mode === "edit" && post && (
@@ -82,29 +82,30 @@ export const PostEditor = ({ post, mode, onSubmit }: Props) => {
             )}
           />
 
-          <div className="grid grid-cols-2 gap-4 flex-1 overflow-hidden p-1">
-            <div className="space-y-2">
-              <ImageUploadButton
-                onUploadCompleted={({ url, fileName }) => {
-                  const textarea = textAreaRef.current;
-                  if (textarea) {
-                    const cursorPosition = textarea.selectionStart || 0;
-                    const markdownImage = `![${fileName}](${url})`;
-                    const updatedBody =
-                      body.slice(0, cursorPosition) +
-                      "\n" +
-                      markdownImage +
-                      "\n" +
-                      body.slice(cursorPosition);
-                    form.setValue("body", updatedBody);
-                  }
-                }}
-              />
+          <div>
+            <ImageUploadButton
+              onUploadCompleted={({ url, fileName }) => {
+                const textarea = textAreaRef.current;
+                if (textarea) {
+                  const cursorPosition = textarea.selectionStart || 0;
+                  const markdownImage = `![${fileName}](${url})`;
+                  const updatedBody =
+                    body.slice(0, cursorPosition) +
+                    "\n" +
+                    markdownImage +
+                    "\n" +
+                    body.slice(cursorPosition);
+                  form.setValue("body", updatedBody);
+                }
+              }}
+            />
+
+            <div className="grid grid-cols-2 gap-4 mt-2 flex-1 min-h-[600px] ">
               <FormField
                 control={form.control}
                 name="body"
                 render={({ field }) => (
-                  <FormItem className="h-full flex flex-col ">
+                  <FormItem>
                     <FormControl>
                       <Textarea
                         {...field}
@@ -116,9 +117,9 @@ export const PostEditor = ({ post, mode, onSubmit }: Props) => {
                   </FormItem>
                 )}
               />
-            </div>
 
-            <HtmlPreview body={body} />
+              <HtmlPreview body={body} />
+            </div>
           </div>
         </div>
       </form>
