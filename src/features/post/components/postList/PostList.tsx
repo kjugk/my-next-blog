@@ -18,7 +18,7 @@ export const PostList = async ({ tagName, className }: Props) => {
     posts = await getPosts({ published: true });
   }
 
-  const listClassName = cn("space-y-10", className);
+  const listClassName = cn("space-y-12", className);
 
   return (
     <ul className={listClassName}>
