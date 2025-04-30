@@ -35,7 +35,7 @@ export const messageBoxExtension: TokenizerAndRendererExtension = {
         type: "message-box",
         raw: match[0],
         text: match[1].trim(),
-        tokens: this.lexer.inlineTokens(match[1].trim(), []),
+        tokens: this.lexer.blockTokens(match[1].trim()), // ブロックトークンとして解釈
       };
       return token;
     }
@@ -47,6 +47,6 @@ export const messageBoxExtension: TokenizerAndRendererExtension = {
     if (!messageToken || !messageToken.tokens) {
       return "";
     }
-    return `<div class="bg-red-200 rounded p-2">${this.parser.parseInline(messageToken.tokens)}</div>\n`;
+    return `<div class="bg-red-200 rounded p-2">${this.parser.parse(messageToken.tokens)}</div>\n`;
   },
 };
