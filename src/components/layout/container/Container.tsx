@@ -8,16 +8,18 @@ const sizeClasses = {
   xl: "max-w-[1280px]",
 };
 
+export type ContainerProps = PropsWithChildren<{
+  as?: keyof JSX.IntrinsicElements;
+  className?: string;
+  size?: keyof typeof sizeClasses;
+}>;
+
 export const Container = ({
   as: Component = "div",
   className,
   size = "md",
   children,
-}: PropsWithChildren<{
-  as?: keyof JSX.IntrinsicElements;
-  className?: string;
-  size?: keyof typeof sizeClasses;
-}>) => {
+}: ContainerProps) => {
   const mergedCn = cn(sizeClasses[size], "w-full mx-auto", className);
 
   return <Component className={mergedCn}>{children}</Component>;

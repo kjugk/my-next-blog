@@ -35,9 +35,5 @@ export const EditPostContainer = ({
     });
   };
 
-  return (
-    <div className="px-8">
-      <PostEditor post={post} onSubmit={handleSubmit} mode="edit" />
-    </div>
-  );
+  return <PostEditor post={post} onSubmit={handleSubmit} mode="edit" />;
 };

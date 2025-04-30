@@ -5,7 +5,7 @@ import { Suspense } from "react";
 
 export default function Page() {
   return (
-    <Container as="main" className="p-8">
+    <Container as="main" size="xl" className="p-8">
       <Heading as="h1" size="3xl">
         下書き一覧
       </Heading>

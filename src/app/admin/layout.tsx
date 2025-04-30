@@ -1,4 +1,5 @@
-import { AdminHeader } from "@/components/navigation/adminHeader/AdminHeader";
+import { Header } from "@/components/navigation/header/Header";
+import { HeaderListItem } from "@/components/navigation/header/HeaderListItem";
 
 export default function AdminLayout({
   children,
@@ -7,7 +8,15 @@ export default function AdminLayout({
 }>) {
   return (
     <div className="h-dvh flex flex-col">
-      <AdminHeader />
+      <Header
+        size="xl"
+        items={
+          <>
+            <HeaderListItem href="/admin/posts/draft" anchor="drafts" />
+            <HeaderListItem href="/admin/posts/published" anchor="published" />
+          </>
+        }
+      />
       {children}
     </div>
   );
