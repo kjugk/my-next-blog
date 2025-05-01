@@ -5,6 +5,7 @@ import hljs from "highlight.js/lib/core";
 import plaintext from "highlight.js/lib/languages/plaintext";
 import javascript from "highlight.js/lib/languages/javascript";
 import typescript from "highlight.js/lib/languages/typescript";
+import html from "highlight.js/lib/languages/xml";
 
 import "highlight.js/styles/panda-syntax-dark.css";
 
@@ -12,6 +13,7 @@ import "highlight.js/styles/panda-syntax-dark.css";
 hljs.registerLanguage("plaintext", plaintext);
 hljs.registerLanguage("javascript", javascript);
 hljs.registerLanguage("typescript", typescript);
+hljs.registerLanguage("html", html);
 
 export const customCodeExtension: MarkedExtension = {
   ...markedHighlight({
