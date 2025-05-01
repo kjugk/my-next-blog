@@ -1,7 +1,9 @@
 import prisma from "@/lib/prisma";
+import { cacheTags } from "@/services/cache";
+import { unstable_cache } from "next/cache";
 
-export const getTags = async () => {
-  try {
+export const getTags = unstable_cache(
+  async () => {
     const tags = await prisma.tag.findMany({
       where: {
         posts: {
@@ -16,8 +18,7 @@ export const getTags = async () => {
     });
 
     return tags;
-  } catch (error) {
-    console.error("Error fetching tags:", error);
-    throw error;
-  }
-};
+  },
+  [],
+  { tags: [cacheTags.tags], revalidate: 3600 },
+);
