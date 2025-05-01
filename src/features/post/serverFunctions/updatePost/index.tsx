@@ -5,7 +5,6 @@ import { cacheTags } from "@/services/cache";
 import { ServerFunctionResponse } from "@/types";
 import { Post } from "@prisma/client";
 import { revalidateTag } from "next/cache";
-import { cache } from "react";
 
 export const updatePost = async (
   id: number,
