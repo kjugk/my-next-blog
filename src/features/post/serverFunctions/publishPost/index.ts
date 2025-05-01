@@ -1,6 +1,7 @@
 "use server";
 
 import prisma from "@/lib/prisma";
+import { cacheTags } from "@/services/cache";
 import { generateOgpImage, uploadOgpImage } from "@/services/ogp";
 import { ServerFunctionResponse } from "@/types";
 import { Post } from "@prisma/client";
@@ -29,7 +30,7 @@ export const changePostPublication = async (
       },
     });
 
-    revalidateTag("posts"); // published posts のキャッシュを無効化
+    revalidateTag(cacheTags.posts); // published posts のキャッシュを無効化
 
     return {
       status: "success",

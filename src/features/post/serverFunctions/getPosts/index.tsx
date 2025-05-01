@@ -1,6 +1,7 @@
 "use server";
 
 import prisma from "@/lib/prisma";
+import { cacheTags } from "@/services/cache";
 import { unstable_cache } from "next/cache";
 
 type Params = {
@@ -19,5 +20,5 @@ export const getPosts = unstable_cache(
     });
   },
   [],
-  { tags: ["posts"], revalidate: 3600 },
+  { tags: [cacheTags.posts], revalidate: 3600 },
 );

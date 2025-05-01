@@ -1,9 +1,11 @@
 "use server";
 
 import prisma from "@/lib/prisma";
+import { cacheTags } from "@/services/cache";
 import { ServerFunctionResponse } from "@/types";
 import { Post } from "@prisma/client";
 import { revalidateTag } from "next/cache";
+import { cache } from "react";
 
 export const updatePost = async (
   id: number,
@@ -28,7 +30,8 @@ export const updatePost = async (
       },
     });
 
-    revalidateTag("posts");
+    revalidateTag(cacheTags.posts);
+    revalidateTag(cacheTags.tags);
 
     return {
       status: "success",

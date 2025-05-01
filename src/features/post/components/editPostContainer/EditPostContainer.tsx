@@ -2,7 +2,7 @@
 
 import React from "react";
 import { PostFormSchemaType } from "../editor/postFormSchema";
-import { updatePost } from "../../serverFunctions/editPost";
+import { updatePost } from "../../serverFunctions/updatePost";
 import { useToast } from "@/hooks/use-toast";
 import { useTransition } from "react";
 import { PostEditor } from "../editor/PostEditor";
