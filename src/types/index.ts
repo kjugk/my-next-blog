@@ -7,4 +7,5 @@ export type ServerFunctionResponse<T> =
   | {
       status: "error";
       message: string;
+      data?: null;
     };
