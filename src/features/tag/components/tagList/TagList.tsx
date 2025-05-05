@@ -8,11 +8,11 @@ export const TagList = async () => {
     <ul className="flex flex-wrap gap-2 mt-6">
       {tags.map((tag) => (
         <Link
-          href={`tags/${tag.name}`}
+          href={`tags/${encodeURIComponent(tag.name)}`}
           key={tag.id}
           className="border border-primary text-primary inline-block px-2 hover:underline underline-offset-2"
         >
-          #{tag.name}
+          #{decodeURIComponent(tag.name)}
         </Link>
       ))}
     </ul>

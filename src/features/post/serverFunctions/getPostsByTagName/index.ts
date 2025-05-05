@@ -12,7 +12,7 @@ export const getPostsByTagName = async ({ tagName }: Params) => {
       published: true,
       tags: {
         some: {
-          name: tagName,
+          name: decodeURIComponent(tagName),
         },
       },
     },
