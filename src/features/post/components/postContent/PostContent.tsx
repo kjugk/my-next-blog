@@ -54,7 +54,7 @@ const PostContent: React.FC<{ post: Post & { tags: Tag[] } }> = ({ post }) => {
             {post.tags.map((tag) => (
               <li key={tag.id} className="inline-block ">
                 <a
-                  href={`/tags/${tag.name}`}
+                  href={`/tags/${encodeURIComponent(tag.name)}`}
                   className="text-primary hover:underline underline-offset-3"
                 >
                   #{tag.name}
