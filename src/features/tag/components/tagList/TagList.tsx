@@ -12,7 +12,7 @@ export const TagList = async () => {
           key={tag.id}
           className="border border-primary text-primary inline-block px-2 hover:underline underline-offset-2"
         >
-          #{decodeURIComponent(tag.name)}
+          #{tag.name}
         </Link>
       ))}
     </ul>
