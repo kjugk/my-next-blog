@@ -14,6 +14,7 @@ export default function AdminLayout({
           <>
             <HeaderListItem href="/admin/posts/draft" anchor="drafts" />
             <HeaderListItem href="/admin/posts/published" anchor="published" />
+            <HeaderListItem href="/admin/posts/new" anchor="new" />
           </>
         }
       />

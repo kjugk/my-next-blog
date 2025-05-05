@@ -15,7 +15,7 @@ export const CreatePostContainer = () => {
 
   const handleSubmit = (values: PostFormSchemaType) => {
     startTransition(async () => {
-      const res = await createPost(
+      const { message, status, data } = await createPost(
         values.title,
         values.body,
         values.tags
@@ -25,12 +25,12 @@ export const CreatePostContainer = () => {
       );
 
       toast({
-        title: res.message,
-        variant: res.status === "error" ? "destructive" : "default",
+        title: message,
+        variant: status === "error" ? "destructive" : "default",
       });
 
-      if (res.status === "success") {
-        router.push("/admin/posts/draft");
+      if (status === "success") {
+        router.push(`/admin/posts/${data.id}/edit`);
       }
     });
   };
