@@ -14,18 +14,19 @@ type Params = {
 
 export default async function Page({ params }: { params: Promise<Params> }) {
   const { tagName } = await params;
+  const decodedTagName = decodeURIComponent(tagName);
 
   return (
     <Container as="main" className="p-8">
       <Heading as="h1" size="3xl">
-        Tag: {tagName}
+        Tag: {decodedTagName}
       </Heading>
       <p className="mt-2 text-muted-foreground">
-        All articles with tag &quot;{tagName}&quot;
+        All articles with tag &quot;{decodedTagName}&quot;
       </p>
 
       <Suspense fallback={<div>Loading...</div>}>
-        <PostList className="mt-6" tagName={tagName} />
+        <PostList className="mt-6" tagName={decodedTagName} />
       </Suspense>
     </Container>
   );
