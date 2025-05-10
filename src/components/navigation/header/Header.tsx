@@ -8,7 +8,7 @@ import {
 } from "@/components/layout/container/Container";
 
 type Props = PropsWithChildren<{
-  items: ReactElement;
+  items?: ReactElement;
   size?: ContainerProps["size"];
 }>;
 
