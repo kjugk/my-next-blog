@@ -1,16 +1,16 @@
 import { bokor } from "@/app/fonts";
 import Link from "next/link";
-import React, { ReactElement } from "react";
+import React, { PropsWithChildren, ReactElement } from "react";
 import { HeaderListItem } from "./HeaderListItem";
 import {
   Container,
   ContainerProps,
 } from "@/components/layout/container/Container";
 
-type Props = {
-  items: ReactElement;
+type Props = PropsWithChildren<{
+  items?: ReactElement;
   size?: ContainerProps["size"];
-};
+}>;
 
 const defaultItems = (
   <>
@@ -20,7 +20,11 @@ const defaultItems = (
   </>
 );
 
-export const Header = ({ items = defaultItems, size = "md" }: Props) => {
+export const Header = ({
+  items = defaultItems,
+  size = "md",
+  children,
+}: Props) => {
   return (
     <Container as="header" size={size} className="px-8">
       <div className="pt-8 pb-6 flex items-center gap-12">
@@ -30,6 +34,8 @@ export const Header = ({ items = defaultItems, size = "md" }: Props) => {
         <nav className="flex-1">
           <ul className="flex gap-4">{items}</ul>
         </nav>
+
+        {children}
       </div>
 
       <hr />

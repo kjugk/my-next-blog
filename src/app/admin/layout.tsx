@@ -1,5 +1,6 @@
 import { Header } from "@/components/navigation/header/Header";
 import { HeaderListItem } from "@/components/navigation/header/HeaderListItem";
+import { LogoutButton } from "@/features/auth/components/LogoutButton";
 
 export default function AdminLayout({
   children,
@@ -17,7 +18,9 @@ export default function AdminLayout({
             <HeaderListItem href="/admin/posts/new" anchor="new" />
           </>
         }
-      />
+      >
+        <LogoutButton />
+      </Header>
       {children}
     </div>
   );
