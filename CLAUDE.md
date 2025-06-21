@@ -5,6 +5,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Development Commands
 
 ```bash
+# Use Node.js v22 (required for Next.js 15)
+nvm use 22
+
 # Development server with Turbopack
 npm run dev
 
