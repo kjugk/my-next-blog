@@ -45,10 +45,14 @@ export const Header = ({
           {/* Desktop navigation */}
           <ul className="hidden sm:flex gap-4">
             {menuItems.map((item) => (
-              <HeaderListItem key={item.href} href={item.href} anchor={item.label} />
+              <HeaderListItem
+                key={item.href}
+                href={item.href}
+                anchor={item.label}
+              />
             ))}
           </ul>
-          
+
           {/* Mobile dropdown menu */}
           <div className="sm:hidden flex justify-end">
             <DropdownMenu>
@@ -67,9 +71,7 @@ export const Header = ({
                 ))}
                 {children && (
                   <DropdownMenuItem asChild>
-                    <div className="w-full">
-                      {children}
-                    </div>
+                    <div className="w-full">{children}</div>
                   </DropdownMenuItem>
                 )}
               </DropdownMenuContent>
@@ -78,9 +80,7 @@ export const Header = ({
         </nav>
 
         {/* Desktop children */}
-        <div className="hidden sm:block">
-          {children}
-        </div>
+        <div className="hidden sm:block">{children}</div>
       </div>
 
       <hr />
