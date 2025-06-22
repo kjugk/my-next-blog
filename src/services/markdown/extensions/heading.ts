@@ -1,4 +1,5 @@
 import { MarkedExtension, Tokens } from "marked";
+import { escapeHtml } from "../../html";
 
 /**
  * テキストをURL安全なslugに変換する
@@ -23,17 +24,6 @@ function createSlug(text: string): string {
  * カスタムヘディングレンダラー
  * ホバー時にアンカーリンクを表示するヘディングを生成する
  */
-/**
- * HTML属性値を安全にエスケープ
- */
-function escapeHtml(unsafe: string): string {
-  return unsafe
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#x27;");
-}
 
 export const customHeadingExtension: MarkedExtension = {
   renderer: {
