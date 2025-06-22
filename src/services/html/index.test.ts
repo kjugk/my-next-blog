@@ -4,7 +4,7 @@ import { escapeHtml, createSlug } from "./index";
 describe("escapeHtml", () => {
   it("should escape basic HTML characters", () => {
     const input = '<script>alert("xss")</script>';
-    const expected = '&lt;script&gt;alert(&quot;xss&quot;)&lt;/script&gt;';
+    const expected = "&lt;script&gt;alert(&quot;xss&quot;)&lt;/script&gt;";
     expect(escapeHtml(input)).toBe(expected);
   });
 
@@ -26,7 +26,6 @@ describe("escapeHtml", () => {
     expect(escapeHtml(input)).toBe(expected);
   });
 
-
   it("should handle empty string", () => {
     expect(escapeHtml("")).toBe("");
   });
@@ -43,7 +42,8 @@ describe("escapeHtml", () => {
 
   it("should escape multiple instances of the same character", () => {
     const input = '"""&&&<<<>>>';
-    const expected = '&quot;&quot;&quot;&amp;&amp;&amp;&lt;&lt;&lt;&gt;&gt;&gt;';
+    const expected =
+      "&quot;&quot;&quot;&amp;&amp;&amp;&lt;&lt;&lt;&gt;&gt;&gt;";
     expect(escapeHtml(input)).toBe(expected);
   });
 
@@ -53,13 +53,13 @@ describe("escapeHtml", () => {
       'javascript:alert("xss")',
       '<svg onload="alert(1)">',
       '"><script>alert("xss")</script>',
-      "';alert('xss');//"
+      "';alert('xss');//",
     ];
 
-    xssAttempts.forEach(xss => {
+    xssAttempts.forEach((xss) => {
       const result = escapeHtml(xss);
-      expect(result).not.toContain('<');
-      expect(result).not.toContain('>');
+      expect(result).not.toContain("<");
+      expect(result).not.toContain(">");
       expect(result).not.toContain('"');
       expect(result).not.toContain("'");
     });
@@ -89,8 +89,8 @@ describe("createSlug", () => {
     const result = createSlug(input);
     expect(result).not.toContain('"');
     expect(result).not.toContain("'");
-    expect(result).not.toContain('<');
-    expect(result).not.toContain('>');
+    expect(result).not.toContain("<");
+    expect(result).not.toContain(">");
   });
 
   it("should handle all HTML entities", () => {
@@ -111,7 +111,6 @@ describe("createSlug", () => {
   it("should handle empty string", () => {
     expect(createSlug("")).toBe("");
   });
-
 
   it("should handle special characters and symbols", () => {
     const input = "Hello@World#Test$";
@@ -140,13 +139,13 @@ describe("createSlug", () => {
       'javascript:alert("xss")',
       '<img src="x" onerror="alert(1)">',
       '"><script>alert("xss")</script>',
-      "';alert('xss');//"
+      "';alert('xss');//",
     ];
 
-    xssAttempts.forEach(xss => {
+    xssAttempts.forEach((xss) => {
       const result = createSlug(xss);
-      expect(result).not.toContain('<');
-      expect(result).not.toContain('>');
+      expect(result).not.toContain("<");
+      expect(result).not.toContain(">");
       expect(result).not.toContain('"');
       expect(result).not.toContain("'");
     });
