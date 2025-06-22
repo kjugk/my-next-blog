@@ -2,6 +2,7 @@ import { Marked } from "marked";
 import { customCodeExtension } from "./extensions/code";
 import { messageBoxExtension } from "./extensions/messageBox";
 import { customLinkExtension } from "./extensions/link";
+import { customHeadingExtension } from "./extensions/heading";
 
 let instance: Marked | undefined = undefined;
 
@@ -14,6 +15,7 @@ export function getMarkedInstance() {
     const _instance = new Marked();
     _instance.use(customLinkExtension);
     _instance.use(customCodeExtension);
+    _instance.use(customHeadingExtension);
     _instance.use({
       extensions: [messageBoxExtension],
     });
