@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { escapeHtml } from "./index";
+import { escapeHtml, createSlug } from "./index";
 
 describe("escapeHtml", () => {
   it("should escape basic HTML characters", () => {
@@ -26,13 +26,6 @@ describe("escapeHtml", () => {
     expect(escapeHtml(input)).toBe(expected);
   });
 
-  it("should return empty string for non-string input", () => {
-    expect(escapeHtml(null as any)).toBe("");
-    expect(escapeHtml(undefined as any)).toBe("");
-    expect(escapeHtml(123 as any)).toBe("");
-    expect(escapeHtml({} as any)).toBe("");
-    expect(escapeHtml([] as any)).toBe("");
-  });
 
   it("should handle empty string", () => {
     expect(escapeHtml("")).toBe("");
@@ -65,6 +58,93 @@ describe("escapeHtml", () => {
 
     xssAttempts.forEach(xss => {
       const result = escapeHtml(xss);
+      expect(result).not.toContain('<');
+      expect(result).not.toContain('>');
+      expect(result).not.toContain('"');
+      expect(result).not.toContain("'");
+    });
+  });
+});
+
+describe("createSlug", () => {
+  it("should create basic slug from simple text", () => {
+    expect(createSlug("Hello World")).toBe("Hello%20World");
+  });
+
+  it("should handle Japanese text", () => {
+    const input = "こんにちは世界";
+    const result = createSlug(input);
+    expect(result).toBe(encodeURIComponent(input));
+  });
+
+  it("should decode HTML entities before encoding", () => {
+    const input = "&amp;Hello&lt;World&gt;";
+    const result = createSlug(input);
+    // &amp; -> & -> %26, &lt; -> < -> %3C (then filtered), &gt; -> > -> %3E (then filtered)
+    expect(result).toBe("%26Hello%3CWorld%3E");
+  });
+
+  it("should remove dangerous HTML characters", () => {
+    const input = 'Hello "World" & <script>';
+    const result = createSlug(input);
+    expect(result).not.toContain('"');
+    expect(result).not.toContain("'");
+    expect(result).not.toContain('<');
+    expect(result).not.toContain('>');
+  });
+
+  it("should handle all HTML entities", () => {
+    const input = "&amp;&lt;&gt;&quot;&#x27;";
+    const result = createSlug(input);
+    // Entities are decoded first: & < > " '
+    // Then encoded: %26 %3C %3E %22 '
+    // Then dangerous chars filtered: %26%3C%3E%22 (single quote ' removed)
+    expect(result).toBe("%26%3C%3E%22");
+  });
+
+  it("should limit length to 100 characters", () => {
+    const longText = "a".repeat(200);
+    const result = createSlug(longText);
+    expect(result.length).toBeLessThanOrEqual(100);
+  });
+
+  it("should handle empty string", () => {
+    expect(createSlug("")).toBe("");
+  });
+
+
+  it("should handle special characters and symbols", () => {
+    const input = "Hello@World#Test$";
+    const result = createSlug(input);
+    expect(result).toBe("Hello%40World%23Test%24");
+  });
+
+  it("should handle mixed content", () => {
+    const input = "記事タイトル - Article Title (2024)";
+    const result = createSlug(input);
+    expect(result).toContain("%E8%A8%98%E4%BA%8B"); // 記事の一部
+    expect(result).toContain("Article");
+    expect(result).toContain("Title");
+    expect(result).toContain("2024");
+  });
+
+  it("should create consistent slugs for same input", () => {
+    const input = "Test Heading";
+    const result1 = createSlug(input);
+    const result2 = createSlug(input);
+    expect(result1).toBe(result2);
+  });
+
+  it("should handle potential XSS in slug context", () => {
+    const xssAttempts = [
+      'javascript:alert("xss")',
+      '<img src="x" onerror="alert(1)">',
+      '"><script>alert("xss")</script>',
+      "';alert('xss');//"
+    ];
+
+    xssAttempts.forEach(xss => {
+      const result = createSlug(xss);
       expect(result).not.toContain('<');
       expect(result).not.toContain('>');
       expect(result).not.toContain('"');

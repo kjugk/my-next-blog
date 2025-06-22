@@ -1,24 +1,5 @@
 import { MarkedExtension, Tokens } from "marked";
-import { escapeHtml } from "../../html";
-
-/**
- * テキストをURL安全なslugに変換する
- * セキュリティを考慮してHTML属性として安全な文字列を生成
- */
-function createSlug(text: string): string {
-  // HTMLエンティティをデコードしてからエンコード
-  const cleanText = text
-    .replace(/&amp;/g, '&')
-    .replace(/&lt;/g, '<')
-    .replace(/&gt;/g, '>')
-    .replace(/&quot;/g, '"')
-    .replace(/&#x27;/g, "'");
-  
-  // percent encodeして、さらにHTML属性として危険な文字をフィルタ
-  return encodeURIComponent(cleanText)
-    .replace(/['"<>]/g, '') // HTML属性として危険な文字を除去
-    .substring(0, 100); // 長さ制限
-}
+import { escapeHtml, createSlug } from "../../html";
 
 /**
  * カスタムヘディングレンダラー
@@ -28,10 +9,10 @@ function createSlug(text: string): string {
 export const customHeadingExtension: MarkedExtension = {
   renderer: {
     heading({ text, depth }: Tokens.Heading): string {
-      const slug = createSlug(text);
       const tag = `h${depth}`;
+      const slug = createSlug(text);
       const escapedSlug = escapeHtml(slug);
-      
+
       return `
         <${tag} id="${escapedSlug}" class="group relative before:content-[''] before:absolute before:-left-8 before:top-0 before:w-8 before:h-full">
           ${text}
