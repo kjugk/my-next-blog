@@ -43,9 +43,9 @@ export const customHeadingExtension: MarkedExtension = {
       const escapedSlug = escapeHtml(slug);
       
       return `
-        <${tag} id="${escapedSlug}" class="heading-with-anchor group relative">
+        <${tag} id="${escapedSlug}" class="group relative before:content-[''] before:absolute before:-left-8 before:top-0 before:w-8 before:h-full">
           ${text}
-          <a href="#${escapedSlug}" class="anchor-link opacity-0 group-hover:opacity-100 transition-opacity duration-200 absolute -left-6 top-1/2 -translate-y-1/2 text-gray-400 hover:text-primary no-underline" aria-label="この見出しへのリンク">
+          <a href="#${escapedSlug}" class="opacity-0 group-hover:opacity-100 hover:opacity-100 transition-opacity duration-200 absolute -left-6 top-1/2 -translate-y-1/2 text-gray-400 hover:text-primary no-underline text-sm font-normal" aria-label="この見出しへのリンク">
             #
           </a>
         </${tag}>

@@ -103,23 +103,4 @@
   pre > code {
     @apply rounded-md p-6!;
   }
-
-  /* Heading anchor links */
-  .heading-with-anchor {
-    @apply relative;
-  }
-
-  .heading-with-anchor::before {
-    content: '';
-    @apply absolute -left-8 top-0 w-8 h-full;
-  }
-
-  .heading-with-anchor .anchor-link {
-    @apply text-sm font-normal no-underline;
-  }
-
-  .heading-with-anchor:hover .anchor-link,
-  .heading-with-anchor .anchor-link:hover {
-    @apply opacity-100;
-  }
 }
