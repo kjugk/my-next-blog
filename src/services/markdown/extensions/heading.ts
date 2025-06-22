@@ -45,7 +45,7 @@ export const customHeadingExtension: MarkedExtension = {
       return `
         <${tag} id="${escapedSlug}" class="heading-with-anchor group relative">
           ${text}
-          <a href="#${escapedSlug}" class="anchor-link opacity-0 group-hover:opacity-100 transition-opacity duration-200 absolute -left-6 top-0 text-gray-400 hover:text-primary no-underline" aria-label="この見出しへのリンク">
+          <a href="#${escapedSlug}" class="anchor-link opacity-0 group-hover:opacity-100 transition-opacity duration-200 absolute -left-6 top-1/2 -translate-y-1/2 text-gray-400 hover:text-primary no-underline" aria-label="この見出しへのリンク">
             #
           </a>
         </${tag}>
